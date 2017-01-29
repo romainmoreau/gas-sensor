@@ -1,6 +1,3 @@
 spring:
   datasource: 
     url: jdbc:h2:~/gaz-sensor
-  h2:
-    console:
-      enabled: true
