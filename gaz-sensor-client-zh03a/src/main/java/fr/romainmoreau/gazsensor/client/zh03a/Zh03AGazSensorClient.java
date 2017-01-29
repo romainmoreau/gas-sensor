@@ -8,14 +8,16 @@ import fr.romainmoreau.gazsensor.client.common.ChecksumUtils;
 import fr.romainmoreau.gazsensor.client.common.GazSensing;
 import fr.romainmoreau.gazsensor.client.common.GazSensorEvent;
 import fr.romainmoreau.gazsensor.client.common.GazSensorEventListener;
+import fr.romainmoreau.gazsensor.client.common.GazSensorExceptionHandler;
 import fr.romainmoreau.gazsensor.client.common.GazSensorReaderFactory;
 import fr.romainmoreau.gazsensor.client.common.GenericGazSensorEvent;
 
 public class Zh03AGazSensorClient extends AbstractGazSensorClient<GazSensorEvent> {
 	public Zh03AGazSensorClient(GazSensorReaderFactory gazSensorReaderFactory,
-			GazSensorEventListener<GazSensorEvent> gazSensorEventListener) throws IOException {
-		super("ZH03A", gazSensorReaderFactory, gazSensorEventListener, 24, 2, (byte) 66, (byte) 77, (byte) 0,
-				(byte) 20);
+			GazSensorEventListener<GazSensorEvent> gazSensorEventListener,
+			GazSensorExceptionHandler gazSensorExceptionHandler) throws IOException {
+		super("ZH03A", gazSensorReaderFactory, gazSensorEventListener, gazSensorExceptionHandler, 24, 2, (byte) 66,
+				(byte) 77, (byte) 0, (byte) 20);
 	}
 
 	@Override

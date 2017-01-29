@@ -22,6 +22,9 @@ public class GazSensorWebApplication {
 	@Autowired
 	private SpringGazSensorEventListener springGazSensorEventListener;
 
+	@Autowired
+	private Slf4JGazSensorExceptionHandler slf4JGazSensorExceptionHandler;
+
 	@Value("${ze07.port-name}")
 	private String ze07PortName;
 
@@ -36,22 +39,24 @@ public class GazSensorWebApplication {
 
 	@Bean
 	public Ze07GazSensorClient ze07GazSensorClient() throws IOException {
-		return new JsscZe07GazSensorClient(ze07PortName, springGazSensorEventListener);
+		return new JsscZe07GazSensorClient(ze07PortName, springGazSensorEventListener, slf4JGazSensorExceptionHandler);
 	}
 
 	@Bean
 	public Ze08GazSensorClient ze08GazSensorClient() throws IOException {
-		return new JsscZe08GazSensorClient(ze08PortName, springGazSensorEventListener);
+		return new JsscZe08GazSensorClient(ze08PortName, springGazSensorEventListener, slf4JGazSensorExceptionHandler);
 	}
 
 	@Bean
 	public Zh03AGazSensorClient zh03aGazSensorClient() throws IOException {
-		return new JsscZh03AGazSensorClient(zh03aPortName, springGazSensorEventListener);
+		return new JsscZh03AGazSensorClient(zh03aPortName, springGazSensorEventListener,
+				slf4JGazSensorExceptionHandler);
 	}
 
 	@Bean
 	public Zph01GazSensorClient zph01GazSensorClient() throws IOException {
-		return new JsscZph01GazSensorClient(zph01PortName, springGazSensorEventListener);
+		return new JsscZph01GazSensorClient(zph01PortName, springGazSensorEventListener,
+				slf4JGazSensorExceptionHandler);
 	}
 
 	public static void main(String[] args) throws Exception {

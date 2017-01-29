@@ -19,16 +19,21 @@ public abstract class AbstractGazSensorClient<E extends GazSensorEvent> implemen
 
 	private final GazSensorEventListener<E> gazSensorEventListener;
 
+	private final GazSensorExceptionHandler gazSensorExceptionHandler;
+
 	private final GazSensorReader gazSensorReader;
 
 	public AbstractGazSensorClient(String sensorName, GazSensorReaderFactory gazSensorReaderFactory,
-			GazSensorEventListener<E> gazSensorEventListener, int length, int checksumLength, byte... header)
-			throws IOException {
+			GazSensorEventListener<E> gazSensorEventListener, GazSensorExceptionHandler gazSensorExceptionHandler,
+			int length, int checksumLength, byte... header) throws IOException {
 		if (header.length > length) {
 			throw new IllegalArgumentException("Header too long");
 		}
 		if (gazSensorEventListener == null) {
 			throw new IllegalArgumentException("Empty listener");
+		}
+		if (gazSensorExceptionHandler == null) {
+			throw new IllegalArgumentException("Empty exception handler");
 		}
 		this.sensorName = sensorName;
 		this.length = length;
@@ -36,12 +41,18 @@ public abstract class AbstractGazSensorClient<E extends GazSensorEvent> implemen
 		this.header = header;
 		this.buffer = new ArrayList<>();
 		this.gazSensorEventListener = gazSensorEventListener;
+		this.gazSensorExceptionHandler = gazSensorExceptionHandler;
 		this.gazSensorReader = gazSensorReaderFactory.construct(this);
 	}
 
 	@Override
 	public GazSensorEventListener<E> getGazSensorEventListener() {
 		return gazSensorEventListener;
+	}
+
+	@Override
+	public GazSensorExceptionHandler getGazSensorExceptionHandler() {
+		return gazSensorExceptionHandler;
 	}
 
 	@Override
@@ -55,14 +66,6 @@ public abstract class AbstractGazSensorClient<E extends GazSensorEvent> implemen
 	}
 
 	@Override
-	public void onIgnoredByte(byte ignoredByte) {
-	}
-
-	@Override
-	public void onReadBytesError(IOException ioException) {
-	}
-
-	@Override
 	public void onReadBytes(byte[] readBytes) {
 		for (byte readByte : readBytes) {
 			buffer.add(readByte);
@@ -72,7 +75,7 @@ public abstract class AbstractGazSensorClient<E extends GazSensorEvent> implemen
 
 	private void checkForEvent() {
 		while (buffer.size() >= length && !Arrays.equals(header, getHeader())) {
-			onIgnoredByte(buffer.remove(0));
+			gazSensorExceptionHandler.onIgnoredByte(buffer.remove(0));
 		}
 		if (buffer.size() < length) {
 			return;
@@ -83,7 +86,7 @@ public abstract class AbstractGazSensorClient<E extends GazSensorEvent> implemen
 			while (invalidHeaderByteIterator.hasNext()) {
 				byte invalidHeaderByte = invalidHeaderByteIterator.next();
 				invalidHeaderByteIterator.remove();
-				onIgnoredByte(invalidHeaderByte);
+				gazSensorExceptionHandler.onIgnoredByte(invalidHeaderByte);
 			}
 		} else {
 			buffer.subList(0, length).clear();

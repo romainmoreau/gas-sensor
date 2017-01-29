@@ -41,7 +41,7 @@ public class JsscGazSensorReader implements GazSensorReader {
 				gazSensorClient.onReadBytes(readBytes);
 			}
 		} catch (SerialPortException e) {
-			gazSensorClient.onReadBytesError(new IOException(e));
+			gazSensorClient.getGazSensorExceptionHandler().onReadBytesError(new IOException(e));
 		}
 	}
 }
