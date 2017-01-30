@@ -13,18 +13,20 @@ import fr.romainmoreau.gazsensor.client.common.GazSensorReaderFactory;
 import fr.romainmoreau.gazsensor.client.common.GenericGazSensorEvent;
 
 public class Zph01GazSensorClient extends AbstractGazSensorClient<GazSensorEvent> {
-	public Zph01GazSensorClient(GazSensorReaderFactory gazSensorReaderFactory,
+	public Zph01GazSensorClient(GazSensorReaderFactory<GazSensorEvent> gazSensorReaderFactory,
 			GazSensorEventListener<GazSensorEvent> gazSensorEventListener,
 			GazSensorExceptionHandler gazSensorExceptionHandler) throws IOException {
-		super("ZPH01", gazSensorReaderFactory, gazSensorEventListener, gazSensorExceptionHandler, 9, 1, (byte) -1,
-				(byte) 24, (byte) 0);
+		super(Zph01.SENSOR_NAME, gazSensorReaderFactory, gazSensorEventListener, gazSensorExceptionHandler,
+				Zph01.EVENT_LENGTH, Zph01.CHECKSUM_LENGTH, Zph01.HEADER);
 	}
 
 	@Override
 	protected GazSensorEvent eventToGazSensorEvent(byte[] event) {
-		return new GenericGazSensorEvent(new GazSensing("PM2.5",
-				new BigDecimal(event[3] * 100 + event[4]).divide(new BigDecimal(100)), "% (Low pulse rate)"),
-				new GazSensing("VOC", new BigDecimal(event[5]), "(0-3)"));
+		return new GenericGazSensorEvent(
+				new GazSensing(Zph01.PM2_5_DESCRIPTION,
+						new BigDecimal(event[3] * Zph01.PM2_5_MULTIPLICAND + event[4]).divide(Zph01.PM2_5_DIVISOR),
+						Zph01.PM2_5_UNIT),
+				new GazSensing(Zph01.VOC_DESCRIPTION, new BigDecimal(event[5]), Zph01.VOC_UNIT));
 	}
 
 	@Override

@@ -13,19 +13,22 @@ import fr.romainmoreau.gazsensor.client.common.GazSensorReaderFactory;
 import fr.romainmoreau.gazsensor.client.common.GenericGazSensorEvent;
 
 public class Zh03AGazSensorClient extends AbstractGazSensorClient<GazSensorEvent> {
-	public Zh03AGazSensorClient(GazSensorReaderFactory gazSensorReaderFactory,
+	public Zh03AGazSensorClient(GazSensorReaderFactory<GazSensorEvent> gazSensorReaderFactory,
 			GazSensorEventListener<GazSensorEvent> gazSensorEventListener,
 			GazSensorExceptionHandler gazSensorExceptionHandler) throws IOException {
-		super("ZH03A", gazSensorReaderFactory, gazSensorEventListener, gazSensorExceptionHandler, 24, 2, (byte) 66,
-				(byte) 77, (byte) 0, (byte) 20);
+		super(Zh03A.SENSOR_NAME, gazSensorReaderFactory, gazSensorEventListener, gazSensorExceptionHandler,
+				Zh03A.EVENT_LENGTH, Zh03A.CHECKSUM_LENGTH, Zh03A.HEADER);
 	}
 
 	@Override
 	protected GazSensorEvent eventToGazSensorEvent(byte[] event) {
 		return new GenericGazSensorEvent(
-				new GazSensing("PM1.0", ByteUtils.highByteLowByteToInt(event[10], event[11]), "ug/m3"),
-				new GazSensing("PM2.5", ByteUtils.highByteLowByteToInt(event[12], event[13]), "ug/m3"),
-				new GazSensing("PM10", ByteUtils.highByteLowByteToInt(event[14], event[15]), "ug/m3"));
+				new GazSensing(Zh03A.PM1_0_DESCRIPTION, ByteUtils.highByteLowByteToBigDecimal(event[10], event[11]),
+						Zh03A.PM_UNIT),
+				new GazSensing(Zh03A.PM2_5_DESCRIPTION, ByteUtils.highByteLowByteToBigDecimal(event[12], event[13]),
+						Zh03A.PM_UNIT),
+				new GazSensing(Zh03A.PM10_DESCRIPTION, ByteUtils.highByteLowByteToBigDecimal(event[14], event[15]),
+						Zh03A.PM_UNIT));
 	}
 
 	@Override
