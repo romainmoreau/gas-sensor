@@ -23,7 +23,7 @@ public abstract class AbstractGazSensorClient<E extends GazSensorEvent> implemen
 
 	private final GazSensorReader gazSensorReader;
 
-	public AbstractGazSensorClient(String sensorName, GazSensorReaderFactory gazSensorReaderFactory,
+	public AbstractGazSensorClient(String sensorName, GazSensorReaderFactory<E> gazSensorReaderFactory,
 			GazSensorEventListener<E> gazSensorEventListener, GazSensorExceptionHandler gazSensorExceptionHandler,
 			int length, int checksumLength, byte... header) throws IOException {
 		if (header.length > length) {
