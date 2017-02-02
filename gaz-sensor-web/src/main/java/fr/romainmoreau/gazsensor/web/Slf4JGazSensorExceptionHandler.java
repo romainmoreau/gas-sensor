@@ -1,6 +1,5 @@
 package fr.romainmoreau.gazsensor.web;
 
-import java.io.IOException;
 import java.util.function.Consumer;
 
 import org.slf4j.Logger;
@@ -14,13 +13,13 @@ public class Slf4JGazSensorExceptionHandler implements GazSensorExceptionHandler
 	private static final Logger LOGGER = LoggerFactory.getLogger(Slf4JGazSensorExceptionHandler.class);
 
 	@Override
-	public void onIgnoredByte(byte ignoredByte) {
-		LOGGER.warn("byte {} ignored", ignoredByte);
+	public void onIgnoredByte(byte ignoredByte, String cause) {
+		LOGGER.warn("byte {} ignored because {}", ignoredByte, cause);
 	}
 
 	@Override
-	public void onReadBytesError(IOException ioException) {
-		LOGGER.error("Exception while reading bytes", ioException);
+	public void onReadBytesError(Exception exception) {
+		LOGGER.error("Exception while reading bytes", exception);
 	}
 
 	@Override

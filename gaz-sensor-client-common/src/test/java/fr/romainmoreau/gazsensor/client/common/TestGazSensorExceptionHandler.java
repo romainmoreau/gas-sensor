@@ -1,6 +1,5 @@
 package fr.romainmoreau.gazsensor.client.common;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +13,11 @@ public class TestGazSensorExceptionHandler implements GazSensorExceptionHandler 
 	}
 
 	@Override
-	public void onReadBytesError(IOException ioException) {
+	public void onReadBytesError(Exception exception) {
 	}
 
 	@Override
-	public void onIgnoredByte(byte ignoredByte) {
+	public void onIgnoredByte(byte ignoredByte, String cause) {
 		ignoredByteList.add(ignoredByte);
 	}
 

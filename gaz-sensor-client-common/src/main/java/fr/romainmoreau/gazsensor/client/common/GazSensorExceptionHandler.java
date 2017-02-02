@@ -1,9 +1,7 @@
 package fr.romainmoreau.gazsensor.client.common;
 
-import java.io.IOException;
-
 public interface GazSensorExceptionHandler {
-	void onIgnoredByte(byte ignoredByte);
+	void onIgnoredByte(byte ignoredByte, String cause);
 
-	void onReadBytesError(IOException ioException);
+	void onReadBytesError(Exception exception);
 }

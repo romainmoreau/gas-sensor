@@ -74,19 +74,30 @@ public abstract class AbstractGazSensorClient<E extends GazSensorEvent> implemen
 	}
 
 	private void checkForEvent() {
-		while (buffer.size() >= length && !Arrays.equals(header, getHeader())) {
-			gazSensorExceptionHandler.onIgnoredByte(buffer.remove(0));
+		while (buffer.size() >= length) {
+			byte[] eventHeader = getHeader();
+			if (!Arrays.equals(header, eventHeader)) {
+				gazSensorExceptionHandler.onIgnoredByte(buffer.remove(0),
+						"received header " + Arrays.toString(eventHeader) + " is different from expected header "
+								+ Arrays.toString(header));
+			} else {
+				break;
+			}
 		}
 		if (buffer.size() < length) {
 			return;
 		}
 		byte[] event = getEvent();
-		if (!isChecksumValid(event)) {
+		byte[] checksum = getChecksum(event);
+		byte[] expectedChecksum = calculateChecksum(event);
+		if (!Arrays.equals(expectedChecksum, checksum)) {
 			Iterator<Byte> invalidHeaderByteIterator = buffer.subList(0, header.length).iterator();
 			while (invalidHeaderByteIterator.hasNext()) {
 				byte invalidHeaderByte = invalidHeaderByteIterator.next();
 				invalidHeaderByteIterator.remove();
-				gazSensorExceptionHandler.onIgnoredByte(invalidHeaderByte);
+				gazSensorExceptionHandler.onIgnoredByte(invalidHeaderByte,
+						"received checksum " + Arrays.toString(checksum) + " is different from expected checksum "
+								+ Arrays.toString(expectedChecksum));
 			}
 		} else {
 			buffer.subList(0, length).clear();
@@ -110,12 +121,6 @@ public abstract class AbstractGazSensorClient<E extends GazSensorEvent> implemen
 
 	private byte[] getEvent() {
 		return getNFirstBytes(length);
-	}
-
-	private boolean isChecksumValid(byte[] event) {
-		byte[] checksum = getChecksum(event);
-		byte[] expectedChecksum = calculateChecksum(event);
-		return Arrays.equals(expectedChecksum, checksum);
 	}
 
 	private byte[] getChecksum(byte[] event) {
