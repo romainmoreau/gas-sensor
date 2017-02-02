@@ -13,21 +13,22 @@ public class GazSensingUpdateChartController {
 	@RequestMapping(value = "/chart/{sensorName}/{description}/hour", method = RequestMethod.GET)
 	private String getGazSensingUpdateChartHour(@PathVariable String sensorName, @PathVariable String description,
 			Model model) {
-		return getGazSensingUpdateChart(sensorName, description, LocalDateTime.now().minusHours(1), LocalDateTime.now(),
-				model);
+		return getGazSensingUpdateChart(sensorName, description, "Hour", LocalDateTime.now().minusHours(1),
+				LocalDateTime.now(), model);
 	}
 
 	@RequestMapping(value = "/chart/{sensorName}/{description}/day", method = RequestMethod.GET)
 	private String getGazSensingUpdateChartDay(@PathVariable String sensorName, @PathVariable String description,
 			Model model) {
-		return getGazSensingUpdateChart(sensorName, description, LocalDateTime.now().minusDays(1), LocalDateTime.now(),
-				model);
+		return getGazSensingUpdateChart(sensorName, description, "Day", LocalDateTime.now().minusDays(1),
+				LocalDateTime.now(), model);
 	}
 
-	private String getGazSensingUpdateChart(@PathVariable String sensorName, @PathVariable String description,
-			@PathVariable LocalDateTime beginning, @PathVariable LocalDateTime end, Model model) {
+	private String getGazSensingUpdateChart(String sensorName, String description, String period,
+			LocalDateTime beginning, LocalDateTime end, Model model) {
 		model.addAttribute("sensorName", sensorName);
 		model.addAttribute("description", description);
+		model.addAttribute("period", period);
 		model.addAttribute("beginning", beginning.toString());
 		model.addAttribute("end", end.toString());
 		return "gazsensor";
