@@ -7,9 +7,9 @@ import jssc.SerialPortEvent;
 import jssc.SerialPortException;
 
 public class JsscGazSensorReader implements GazSensorReader {
-	private GazSensorClient<?> gazSensorClient;
+	private final GazSensorClient<?> gazSensorClient;
 
-	private SerialPort serialPort;
+	private final SerialPort serialPort;
 
 	public JsscGazSensorReader(GazSensorClient<?> gazSensorClient, String portName) throws IOException {
 		this.gazSensorClient = gazSensorClient;
