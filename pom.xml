@@ -6,18 +6,18 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.4.4.RELEASE</version>
 	</parent>
-	<groupId>fr.romainmoreau.gazsensor</groupId>
-	<artifactId>gaz-sensor</artifactId>
+	<groupId>fr.romainmoreau.gassensor</groupId>
+	<artifactId>gas-sensor</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>gaz-sensor-client-common</module>
-		<module>gaz-sensor-client-zph01</module>
-		<module>gaz-sensor-client-zh03a</module>
-		<module>gaz-sensor-client-ze07</module>
-		<module>gaz-sensor-client-ze08</module>
-		<module>gaz-sensor-client-all</module>
-		<module>gaz-sensor-web</module>
+		<module>gas-sensor-client-common</module>
+		<module>gas-sensor-client-zph01</module>
+		<module>gas-sensor-client-zh03a</module>
+		<module>gas-sensor-client-ze07</module>
+		<module>gas-sensor-client-ze08</module>
+		<module>gas-sensor-client-all</module>
+		<module>gas-sensor-web</module>
 	</modules>
 	<properties>
 		<java.version>1.8</java.version>
@@ -25,38 +25,38 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>fr.romainmoreau.gazsensor</groupId>
-				<artifactId>gaz-sensor-client-common</artifactId>
+				<groupId>fr.romainmoreau.gassensor</groupId>
+				<artifactId>gas-sensor-client-common</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>fr.romainmoreau.gazsensor</groupId>
-				<artifactId>gaz-sensor-client-zph01</artifactId>
+				<groupId>fr.romainmoreau.gassensor</groupId>
+				<artifactId>gas-sensor-client-zph01</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>fr.romainmoreau.gazsensor</groupId>
-				<artifactId>gaz-sensor-client-zh03a</artifactId>
+				<groupId>fr.romainmoreau.gassensor</groupId>
+				<artifactId>gas-sensor-client-zh03a</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>fr.romainmoreau.gazsensor</groupId>
-				<artifactId>gaz-sensor-client-ze07</artifactId>
+				<groupId>fr.romainmoreau.gassensor</groupId>
+				<artifactId>gas-sensor-client-ze07</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>fr.romainmoreau.gazsensor</groupId>
-				<artifactId>gaz-sensor-client-ze08</artifactId>
+				<groupId>fr.romainmoreau.gassensor</groupId>
+				<artifactId>gas-sensor-client-ze08</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>fr.romainmoreau.gazsensor</groupId>
-				<artifactId>gaz-sensor-client-all</artifactId>
+				<groupId>fr.romainmoreau.gassensor</groupId>
+				<artifactId>gas-sensor-client-all</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>fr.romainmoreau.gazsensor</groupId>
-				<artifactId>gaz-sensor-web</artifactId>
+				<groupId>fr.romainmoreau.gassensor</groupId>
+				<artifactId>gas-sensor-web</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

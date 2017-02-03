@@ -1,1 +1,1 @@
-# gaz-sensor
+# gas-sensor
