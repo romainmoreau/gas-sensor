@@ -17,10 +17,24 @@ public class GazSensingUpdateChartController {
 				LocalDateTime.now(), model);
 	}
 
+	@RequestMapping(value = "/chart/{sensorName}/{description}/{n}-hours", method = RequestMethod.GET)
+	private String getGazSensingUpdateChartNHours(@PathVariable String sensorName, @PathVariable String description,
+			@PathVariable int n, Model model) {
+		return getGazSensingUpdateChart(sensorName, description, n + " hours", LocalDateTime.now().minusHours(n),
+				LocalDateTime.now(), model);
+	}
+
 	@RequestMapping(value = "/chart/{sensorName}/{description}/day", method = RequestMethod.GET)
 	private String getGazSensingUpdateChartDay(@PathVariable String sensorName, @PathVariable String description,
 			Model model) {
 		return getGazSensingUpdateChart(sensorName, description, "Day", LocalDateTime.now().minusDays(1),
+				LocalDateTime.now(), model);
+	}
+
+	@RequestMapping(value = "/chart/{sensorName}/{description}/{n}-days", method = RequestMethod.GET)
+	private String getGazSensingUpdateChartNDays(@PathVariable String sensorName, @PathVariable String description,
+			@PathVariable int n, Model model) {
+		return getGazSensingUpdateChart(sensorName, description, n + " days", LocalDateTime.now().minusDays(n),
 				LocalDateTime.now(), model);
 	}
 
