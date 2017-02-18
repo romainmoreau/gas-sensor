@@ -24,5 +24,9 @@
 			<groupId>fr.romainmoreau.gassensor</groupId>
 			<artifactId>gas-sensor-client-ze08</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>fr.romainmoreau.gassensor</groupId>
+			<artifactId>gas-sensor-client-mhz19</artifactId>
+		</dependency>
 	</dependencies>
 </project>

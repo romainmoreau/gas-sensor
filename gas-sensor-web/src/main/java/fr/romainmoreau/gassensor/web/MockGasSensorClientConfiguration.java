@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import fr.romainmoreau.gassensor.client.common.RandomSleepMillisSupplier;
+import fr.romainmoreau.gassensor.client.mhz19.MhZ19GasSensorClient;
+import fr.romainmoreau.gassensor.client.mhz19.MockMhZ19GasSensorClient;
+import fr.romainmoreau.gassensor.client.mhz19.RandomMhZ19GasSensorEventSupplier;
 import fr.romainmoreau.gassensor.client.ze07.MockZe07GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze07.RandomZe07GasSensorEventSupplier;
 import fr.romainmoreau.gassensor.client.ze07.Ze07GasSensorClient;
@@ -58,6 +61,13 @@ public class MockGasSensorClientConfiguration {
 	public Zph01GasSensorClient zph01GasSensorClient() throws IOException {
 		return new MockZph01GasSensorClient(new RandomSleepMillisSupplier(MIN_SLEEP_MILLIS, MAX_SLEEP_MILLIS),
 				new RandomZph01GasSensorEventSupplier(), slf4JGasSensorExceptionHandler, springGasSensorEventListener,
+				slf4JGasSensorExceptionHandler);
+	}
+
+	@Bean
+	public MhZ19GasSensorClient mhZ19GasSensorClient() throws IOException {
+		return new MockMhZ19GasSensorClient(new RandomSleepMillisSupplier(MIN_SLEEP_MILLIS, MAX_SLEEP_MILLIS),
+				new RandomMhZ19GasSensorEventSupplier(), slf4JGasSensorExceptionHandler, springGasSensorEventListener,
 				slf4JGasSensorExceptionHandler);
 	}
 }
