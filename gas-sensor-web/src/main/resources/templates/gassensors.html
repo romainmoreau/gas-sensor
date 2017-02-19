@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title th:text="Charts"></title>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+</head>
+<body>
+	<div
+		th:each="sensorNameDescriptionUnitEntry : ${sensorNameDescriptionUnitMap}">
+		<h3 th:text="${sensorNameDescriptionUnitEntry.key}"></h3>
+		<table>
+			<tr
+				th:each="sensorNameDescriptionUnit : ${sensorNameDescriptionUnitEntry.value}">
+				<td th:text="${sensorNameDescriptionUnit[1]}"></td>
+				<td th:text="${sensorNameDescriptionUnit[2]}"></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/hour(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">Hour</a></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/2-hours(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">2
+						hours</a></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/3-hours(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">3
+						hours</a></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/6-hours(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">6
+						hours</a></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/12-hours(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">12
+						hours</a></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/day(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">Day</a></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/2-days(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">2
+						days</a></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/3-days(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">3
+						days</a></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/7-days(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">7
+						days</a></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/14-days(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">14
+						days</a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
