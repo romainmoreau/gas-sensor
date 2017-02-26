@@ -6,7 +6,10 @@
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/momentjs/min/moment.min.js}"></script>
 <script th:src="@{/webjars/chartjs/Chart.min.js}"></script>
+<script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
+<script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
 <script th:inline="javascript">
+var stompEndpointUrl = [[@{/stompEndpoint}]];
 var sensorName = [[${sensorName}]];
 var description = [[${description}]];
 var unit = [[${unit}]];

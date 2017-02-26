@@ -1,4 +1,6 @@
-function intervalsUpdatesToDatasets(intervals, updates) {
+var intervals, updates;
+
+function intervalsUpdatesToDatasets() {
 	var datasets = [];
 	if (intervals.length == 0) {
 		intervals.push({
@@ -42,8 +44,8 @@ function intervalsUpdatesToDatasets(intervals, updates) {
 	return datasets;
 }
 
-function initChartFromResponse(intervals, updates) {
-	var datasets = intervalsUpdatesToDatasets(intervals, updates);
+function updateChart() {
+	var datasets = intervalsUpdatesToDatasets();
 	var canvas = $("canvas#chart");
 	var chart = new Chart(canvas, {
 		type : 'line',
@@ -70,16 +72,35 @@ function initChartFromResponse(intervals, updates) {
 	});
 }
 
-function fetchUpdates(intervals) {
+function init() {
+	updateChart();
+	var webSocket = new SockJS(stompEndpointUrl);
+	var stompClient = Stomp.over(webSocket);
+	stompClient.connect({}, function() {
+		stompClient.subscribe('/updates/' + sensorName + '/' + description
+				+ '/' + unit, function(update) {
+			updates.push(JSON.parse(update.body));
+			updateChart();
+		});
+	}, function(error) {
+		alert(error);
+	});
+}
+
+function fetchUpdates() {
 	$.getJSON("/updates/" + sensorName + "/" + description + "/" + beginning
-			+ "/" + end + "?unit=" + encodeURI(unit), function(updates) {
-		initChartFromResponse(intervals, updates);
+			+ "/" + end + "?unit=" + encodeURI(unit), function(response) {
+		updates = response;
+		init();
 	});
 }
 
 function fetchIntervals() {
 	$.getJSON("/intervals/" + description + "/?unit=" + encodeURI(unit),
-			fetchUpdates);
+			function(response) {
+				intervals = response;
+				fetchUpdates();
+			});
 }
 
 $(document).ready(fetchIntervals);
