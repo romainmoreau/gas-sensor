@@ -90,6 +90,7 @@
 							<goal>repackage</goal>
 						</goals>
 						<configuration>
+							<finalName>${project.artifactId}</finalName>
 							<executable>true</executable>
 						</configuration>
 					</execution>
