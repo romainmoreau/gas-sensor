@@ -1,5 +1,46 @@
 # Gas sensor
+To build the projects, simply run `mvn clean install`.
 ## Web application
+### Installation
+After building the projects, the web application binary will be located at:
+* `gas-sensor-web\target\gas-sensor-web.exe` **(Windows specific)**
+* `gas-sensor-web\target\gas-sensor-web.jar` **(All OS)**
+
+### Configuration
+You need to create an `application.yml` next to the binary before running it:
+```yml
+ze07:
+  port-name: COM2 # Not required, activates the reading from the specified port of a ZE07 sensor if the jssc profile is activated.
+ze08:
+  port-name: COM3 # Not required, activates the reading from the specified port of a ZE08 sensor if the jssc profile is activated.
+zh03a:
+  port-name: COM4 # Not required, activates the reading from the specified port of a ZH03A sensor if the jssc profile is activated.
+zph01:
+  port-name: COM5 # Not required, activates the reading from the specified port of a ZPH01 sensor if the jssc profile is activated.
+mhz19:
+  port-name: COM6 # Not required, activates the reading from the specified port of a MH-Z19 sensor if the jssc profile is activated.
+spring:
+  profiles:
+    active: jssc # Profile jssc activates the reading from the sensors via the serial port communication. Profile mock activates the reading from mock sensors.
+  datasource: 
+    url: jdbc:h2:~/gas-sensor-web;DB_CLOSE_ON_EXIT=FALSE # Not required, by default a memory H2 database is created. PostgreSQL JDBC URL are also supported.
+  jpa:
+    hibernate:
+      ddl-auto: update # Not required, but if not added, you will have to create the tables by hand.
+logging:
+  file: gas-sensor-web.log # Not required, default is logging to console only.
+server:
+  port: 8081 # Not required, default is 8080.
+```
+
+### Usage
+To run it, you can: 
+* Double click on `gas-sensor-web.exe` **(Windows specific)**
+* Run `java -jar gas-sensor-web.jar` **(All OS)**
+
+By default, go to `http://localhost:8080/charts` to see a page dynamically listing all the charts for all the sensors configured.
+
+When you click on one of then, you will see something like that:
 ![](docs/PM2.5.png)
 ## Java clients
 If you need to use the gas sensors in your own Java projects, you can use the Java clients. The only external dependency used by these clients is JSSC for handling the serial port communication.
