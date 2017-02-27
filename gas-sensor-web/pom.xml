@@ -108,9 +108,7 @@
 						</goals>
 						<configuration>
 							<headerType>console</headerType>
-							<singleInstance>
-								<mutexName>gas-sensor-web</mutexName>
-							</singleInstance>
+							<jar>target/${project.artifactId}.jar</jar>
 							<jre>
 								<minVersion>1.8.0</minVersion>
 							</jre>
