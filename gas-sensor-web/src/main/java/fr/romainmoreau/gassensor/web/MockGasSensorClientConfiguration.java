@@ -11,6 +11,9 @@ import fr.romainmoreau.gassensor.client.common.RandomSleepMillisSupplier;
 import fr.romainmoreau.gassensor.client.mhz19.MhZ19GasSensorClient;
 import fr.romainmoreau.gassensor.client.mhz19.MockMhZ19GasSensorClient;
 import fr.romainmoreau.gassensor.client.mhz19.RandomMhZ19GasSensorEventSupplier;
+import fr.romainmoreau.gassensor.client.si7021.MockSi7021GasSensorClient;
+import fr.romainmoreau.gassensor.client.si7021.RandomSi7021GasSensorEventSupplier;
+import fr.romainmoreau.gassensor.client.si7021.Si7021GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze07.MockZe07GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze07.RandomZe07GasSensorEventSupplier;
 import fr.romainmoreau.gassensor.client.ze07.Ze07GasSensorClient;
@@ -68,6 +71,13 @@ public class MockGasSensorClientConfiguration {
 	public MhZ19GasSensorClient mhZ19GasSensorClient() throws IOException {
 		return new MockMhZ19GasSensorClient(new RandomSleepMillisSupplier(MIN_SLEEP_MILLIS, MAX_SLEEP_MILLIS),
 				new RandomMhZ19GasSensorEventSupplier(), slf4JGasSensorExceptionHandler, springGasSensorEventListener,
+				slf4JGasSensorExceptionHandler);
+	}
+
+	@Bean
+	public Si7021GasSensorClient si7021GasSensorClient() throws IOException {
+		return new MockSi7021GasSensorClient(new RandomSleepMillisSupplier(MIN_SLEEP_MILLIS, MAX_SLEEP_MILLIS),
+				new RandomSi7021GasSensorEventSupplier(), slf4JGasSensorExceptionHandler, springGasSensorEventListener,
 				slf4JGasSensorExceptionHandler);
 	}
 }

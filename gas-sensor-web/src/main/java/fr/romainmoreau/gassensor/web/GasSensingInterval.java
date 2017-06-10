@@ -13,7 +13,7 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
-@Table(indexes = { @Index(columnList = "description,unit,category", unique = true) })
+@Table(indexes = { @Index(columnList = "description,unit,category", unique = false) })
 public class GasSensingInterval {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

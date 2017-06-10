@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import fr.romainmoreau.gassensor.client.common.AbstractGasSensorClient;
 import fr.romainmoreau.gassensor.client.common.ChecksumUtils;
+import fr.romainmoreau.gassensor.client.common.FixedLengthGasSensorEventAnalyser;
 import fr.romainmoreau.gassensor.client.common.GasSensing;
 import fr.romainmoreau.gassensor.client.common.GasSensorEvent;
 import fr.romainmoreau.gassensor.client.common.GasSensorEventListener;
@@ -17,7 +18,7 @@ public class Zph01GasSensorClient extends AbstractGasSensorClient<GasSensorEvent
 			GasSensorEventListener<GasSensorEvent> gasSensorEventListener,
 			GasSensorExceptionHandler gasSensorExceptionHandler) throws IOException {
 		super(Zph01.SENSOR_NAME, gasSensorReaderFactory, gasSensorEventListener, gasSensorExceptionHandler,
-				Zph01.EVENT_LENGTH, Zph01.CHECKSUM_LENGTH, Zph01.HEADER);
+				new FixedLengthGasSensorEventAnalyser(Zph01.EVENT_LENGTH), Zph01.CHECKSUM_LENGTH, Zph01.HEADER);
 	}
 
 	@Override

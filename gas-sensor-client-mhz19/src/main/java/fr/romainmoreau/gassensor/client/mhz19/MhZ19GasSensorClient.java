@@ -5,6 +5,7 @@ import java.io.IOException;
 import fr.romainmoreau.gassensor.client.common.AbstractGasSensorClient;
 import fr.romainmoreau.gassensor.client.common.ByteUtils;
 import fr.romainmoreau.gassensor.client.common.ChecksumUtils;
+import fr.romainmoreau.gassensor.client.common.FixedLengthGasSensorEventAnalyser;
 import fr.romainmoreau.gassensor.client.common.GasSensing;
 import fr.romainmoreau.gassensor.client.common.GasSensorEvent;
 import fr.romainmoreau.gassensor.client.common.GasSensorEventListener;
@@ -17,7 +18,7 @@ public class MhZ19GasSensorClient extends AbstractGasSensorClient<GasSensorEvent
 			GasSensorEventListener<GasSensorEvent> gasSensorEventListener,
 			GasSensorExceptionHandler gasSensorExceptionHandler) throws IOException {
 		super(MhZ19.SENSOR_NAME, gasSensorReaderFactory, gasSensorEventListener, gasSensorExceptionHandler,
-				MhZ19.EVENT_LENGTH, MhZ19.CHECKSUM_LENGTH, MhZ19.HEADER);
+				new FixedLengthGasSensorEventAnalyser(MhZ19.EVENT_LENGTH), MhZ19.CHECKSUM_LENGTH, MhZ19.HEADER);
 	}
 
 	@Override

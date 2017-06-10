@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Profile;
 
 import fr.romainmoreau.gassensor.client.mhz19.JsscMhZ19GasSensorClient;
 import fr.romainmoreau.gassensor.client.mhz19.MhZ19GasSensorClient;
+import fr.romainmoreau.gassensor.client.si7021.JsscSi7021GasSensorClient;
+import fr.romainmoreau.gassensor.client.si7021.Si7021GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze07.JsscZe07GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze07.Ze07GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze08.JsscZe08GasSensorClient;
@@ -43,6 +45,9 @@ public class JsscGasSensorClientConfiguration {
 	@Autowired
 	private MhZ19JsscProperties mhZ19JsscProperties;
 
+	@Autowired
+	private Si7021JsscProperties si7021JsscProperties;
+
 	@Bean
 	@ConditionalOnProperty("ze07.port-name")
 	public Ze07GasSensorClient ze07GasSensorClient() throws IOException {
@@ -75,6 +80,13 @@ public class JsscGasSensorClientConfiguration {
 	@ConditionalOnProperty("mhz19.port-name")
 	public MhZ19GasSensorClient mhZ19GasSensorClient() throws IOException {
 		return new JsscMhZ19GasSensorClient(mhZ19JsscProperties.getPortName(), springGasSensorEventListener,
+				slf4JGasSensorExceptionHandler);
+	}
+
+	@Bean
+	@ConditionalOnProperty("si7021.port-name")
+	public Si7021GasSensorClient si7021GasSensorClient() throws IOException {
+		return new JsscSi7021GasSensorClient(si7021JsscProperties.getPortName(), springGasSensorEventListener,
 				slf4JGasSensorExceptionHandler);
 	}
 }

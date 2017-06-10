@@ -23,6 +23,20 @@ public class GasSensingUpdateChartController {
 		return "gassensors";
 	}
 
+	@RequestMapping(value = "/chart/{sensorName}/{description}/minute", method = RequestMethod.GET)
+	private String getGasSensingUpdateChartMinute(@PathVariable String sensorName, @PathVariable String description,
+			@RequestParam String unit, Model model) {
+		return getGasSensingUpdateChart(sensorName, description, unit, "Minute", LocalDateTime.now().minusMinutes(1),
+				LocalDateTime.now(), model);
+	}
+
+	@RequestMapping(value = "/chart/{sensorName}/{description}/{n}-minutes", method = RequestMethod.GET)
+	private String getGasSensingUpdateChartNMinutes(@PathVariable String sensorName, @PathVariable String description,
+			@RequestParam String unit, @PathVariable int n, Model model) {
+		return getGasSensingUpdateChart(sensorName, description, unit, n + " minutes",
+				LocalDateTime.now().minusMinutes(n), LocalDateTime.now(), model);
+	}
+
 	@RequestMapping(value = "/chart/{sensorName}/{description}/hour", method = RequestMethod.GET)
 	private String getGasSensingUpdateChartHour(@PathVariable String sensorName, @PathVariable String description,
 			@RequestParam String unit, Model model) {

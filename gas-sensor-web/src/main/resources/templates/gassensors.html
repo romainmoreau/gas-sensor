@@ -14,6 +14,14 @@
 				<td th:text="${sensorNameDescriptionUnit[1]}"></td>
 				<td th:text="${sensorNameDescriptionUnit[2]}"></td>
 				<td><a
+					th:href="@{/chart/{sensorName}/{description}/minute(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">Minute</a></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/5-minutes(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">5 minutes</a></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/15-minutes(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">15 minutes</a></td>
+				<td><a
+					th:href="@{/chart/{sensorName}/{description}/30-minutes(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">30 minutes</a></td>
+				<td><a
 					th:href="@{/chart/{sensorName}/{description}/hour(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">Hour</a></td>
 				<td><a
 					th:href="@{/chart/{sensorName}/{description}/2-hours(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">2

@@ -9,8 +9,6 @@ import java.util.List;
 public abstract class AbstractGasSensorClient<E extends GasSensorEvent> implements GasSensorClient<E> {
 	private final String sensorName;
 
-	private final int length;
-
 	private final int checksumLength;
 
 	private final byte[] header;
@@ -21,14 +19,13 @@ public abstract class AbstractGasSensorClient<E extends GasSensorEvent> implemen
 
 	private final GasSensorExceptionHandler gasSensorExceptionHandler;
 
+	private final GasSensorEventAnalyser gasSensorEventAnalyser;
+
 	private final GasSensorReader gasSensorReader;
 
 	public AbstractGasSensorClient(String sensorName, GasSensorReaderFactory<E> gasSensorReaderFactory,
 			GasSensorEventListener<E> gasSensorEventListener, GasSensorExceptionHandler gasSensorExceptionHandler,
-			int length, int checksumLength, byte... header) throws IOException {
-		if (header.length > length) {
-			throw new IllegalArgumentException("Header too long");
-		}
+			GasSensorEventAnalyser gasSensorEventAnalyser, int checksumLength, byte... header) throws IOException {
 		if (gasSensorEventListener == null) {
 			throw new IllegalArgumentException("Empty listener");
 		}
@@ -36,7 +33,7 @@ public abstract class AbstractGasSensorClient<E extends GasSensorEvent> implemen
 			throw new IllegalArgumentException("Empty exception handler");
 		}
 		this.sensorName = sensorName;
-		this.length = length;
+		this.gasSensorEventAnalyser = gasSensorEventAnalyser;
 		this.checksumLength = checksumLength;
 		this.header = header;
 		this.buffer = new ArrayList<>();
@@ -74,7 +71,7 @@ public abstract class AbstractGasSensorClient<E extends GasSensorEvent> implemen
 	}
 
 	private void checkForEvent() {
-		while (buffer.size() >= length) {
+		while (buffer.size() >= header.length) {
 			byte[] eventHeader = getHeader();
 			if (!Arrays.equals(header, eventHeader)) {
 				gasSensorExceptionHandler.onIgnoredByte(buffer.remove(0),
@@ -84,43 +81,33 @@ public abstract class AbstractGasSensorClient<E extends GasSensorEvent> implemen
 				break;
 			}
 		}
-		if (buffer.size() < length) {
+		if (!gasSensorEventAnalyser.isContainingAtLeastOneEvent(buffer)) {
 			return;
 		}
-		byte[] event = getEvent();
-		byte[] checksum = getChecksum(event);
-		byte[] expectedChecksum = calculateChecksum(event);
-		if (!Arrays.equals(expectedChecksum, checksum)) {
-			Iterator<Byte> invalidHeaderByteIterator = buffer.subList(0, header.length).iterator();
-			while (invalidHeaderByteIterator.hasNext()) {
-				byte invalidHeaderByte = invalidHeaderByteIterator.next();
-				invalidHeaderByteIterator.remove();
-				gasSensorExceptionHandler.onIgnoredByte(invalidHeaderByte,
-						"received checksum " + Arrays.toString(checksum) + " is different from expected checksum "
-								+ Arrays.toString(expectedChecksum));
+		byte[] event = gasSensorEventAnalyser.getFirstEvent(buffer);
+		if (checksumLength > 0) {
+			byte[] checksum = getChecksum(event);
+			byte[] expectedChecksum = calculateChecksum(event);
+			if (!Arrays.equals(expectedChecksum, checksum)) {
+				Iterator<Byte> invalidHeaderByteIterator = buffer.subList(0, header.length).iterator();
+				while (invalidHeaderByteIterator.hasNext()) {
+					byte invalidHeaderByte = invalidHeaderByteIterator.next();
+					invalidHeaderByteIterator.remove();
+					gasSensorExceptionHandler.onIgnoredByte(invalidHeaderByte,
+							"received checksum " + Arrays.toString(checksum) + " is different from expected checksum "
+									+ Arrays.toString(expectedChecksum));
+				}
+			} else {
+				onEvent(event);
 			}
 		} else {
-			buffer.subList(0, length).clear();
 			onEvent(event);
 		}
 		checkForEvent();
 	}
 
-	private byte[] getNFirstBytes(int n) {
-		List<Byte> nFirstByteList = buffer.subList(0, n);
-		byte[] nFirstBytes = new byte[n];
-		for (int i = 0; i < nFirstByteList.size(); i++) {
-			nFirstBytes[i] = nFirstByteList.get(i);
-		}
-		return nFirstBytes;
-	}
-
 	private byte[] getHeader() {
-		return getNFirstBytes(header.length);
-	}
-
-	private byte[] getEvent() {
-		return getNFirstBytes(length);
+		return ByteUtils.getNFirstBytes(header.length, buffer);
 	}
 
 	private byte[] getChecksum(byte[] event) {
@@ -128,6 +115,7 @@ public abstract class AbstractGasSensorClient<E extends GasSensorEvent> implemen
 	}
 
 	private void onEvent(byte[] event) {
+		buffer.subList(0, event.length).clear();
 		gasSensorEventListener.onGasSensorEvent(getSensorName(), eventToGasSensorEvent(event));
 	}
 

@@ -5,29 +5,20 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class AbstractGasSensorClientTest {
+public class TestGasSensorClientTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testEmptyListener() throws IOException {
 		TestGasSensorExceptionHandler testGasSensorExceptionHandler = new TestGasSensorExceptionHandler();
-		try (TestGasSensorClient testGasSensorClient = new TestGasSensorClient(null, testGasSensorExceptionHandler, 10,
-				1, (byte) 1, (byte) 2)) {
-		}
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testHeaderTooLong() throws IOException {
-		TestGasSensorEventListener testGasSensorEventListener = new TestGasSensorEventListener();
-		TestGasSensorExceptionHandler testGasSensorExceptionHandler = new TestGasSensorExceptionHandler();
-		try (TestGasSensorClient testGasSensorClient = new TestGasSensorClient(testGasSensorEventListener,
-				testGasSensorExceptionHandler, 1, 10, (byte) 1, (byte) 2)) {
+		try (TestGasSensorClient testGasSensorClient = new TestGasSensorClient(null, testGasSensorExceptionHandler,
+				new FixedLengthGasSensorEventAnalyser(10), 1, (byte) 1, (byte) 2)) {
 		}
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testEmptyExceptionHandler() throws IOException {
 		TestGasSensorEventListener testGasSensorEventListener = new TestGasSensorEventListener();
-		try (TestGasSensorClient testGasSensorClient = new TestGasSensorClient(testGasSensorEventListener, null, 10, 1,
-				(byte) 1, (byte) 2)) {
+		try (TestGasSensorClient testGasSensorClient = new TestGasSensorClient(testGasSensorEventListener, null,
+				new FixedLengthGasSensorEventAnalyser(10), 1, (byte) 1, (byte) 2)) {
 		}
 	}
 
@@ -36,7 +27,7 @@ public class AbstractGasSensorClientTest {
 		TestGasSensorEventListener testGasSensorEventListener = new TestGasSensorEventListener();
 		TestGasSensorExceptionHandler testGasSensorExceptionHandler = new TestGasSensorExceptionHandler();
 		try (TestGasSensorClient testGasSensorClient = new TestGasSensorClient(testGasSensorEventListener,
-				testGasSensorExceptionHandler, 10, 1, (byte) 1, (byte) 2)) {
+				testGasSensorExceptionHandler, new FixedLengthGasSensorEventAnalyser(10), 1, (byte) 1, (byte) 2)) {
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5, (byte) 6,
 					(byte) 7, (byte) 8, (byte) 9, (byte) 45 });
 			Assert.assertEquals(1, testGasSensorEventListener.getTestGasSensorEventList().size());
@@ -51,7 +42,7 @@ public class AbstractGasSensorClientTest {
 		TestGasSensorEventListener testGasSensorEventListener = new TestGasSensorEventListener();
 		TestGasSensorExceptionHandler testGasSensorExceptionHandler = new TestGasSensorExceptionHandler();
 		try (TestGasSensorClient testGasSensorClient = new TestGasSensorClient(testGasSensorEventListener,
-				testGasSensorExceptionHandler, 10, 1, (byte) 1, (byte) 2)) {
+				testGasSensorExceptionHandler, new FixedLengthGasSensorEventAnalyser(10), 1, (byte) 1, (byte) 2)) {
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 1 });
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 2 });
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 3 });
@@ -74,7 +65,7 @@ public class AbstractGasSensorClientTest {
 		TestGasSensorEventListener testGasSensorEventListener = new TestGasSensorEventListener();
 		TestGasSensorExceptionHandler testGasSensorExceptionHandler = new TestGasSensorExceptionHandler();
 		try (TestGasSensorClient testGasSensorClient = new TestGasSensorClient(testGasSensorEventListener,
-				testGasSensorExceptionHandler, 10, 1, (byte) 1, (byte) 2)) {
+				testGasSensorExceptionHandler, new FixedLengthGasSensorEventAnalyser(10), 1, (byte) 1, (byte) 2)) {
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5, (byte) 6,
 					(byte) 7, (byte) 8, (byte) 9, (byte) 45 });
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 1, (byte) 2, (byte) 9, (byte) 8, (byte) 7, (byte) 6,
@@ -93,7 +84,7 @@ public class AbstractGasSensorClientTest {
 		TestGasSensorEventListener testGasSensorEventListener = new TestGasSensorEventListener();
 		TestGasSensorExceptionHandler testGasSensorExceptionHandler = new TestGasSensorExceptionHandler();
 		try (TestGasSensorClient testGasSensorClient = new TestGasSensorClient(testGasSensorEventListener,
-				testGasSensorExceptionHandler, 10, 1, (byte) 1, (byte) 2)) {
+				testGasSensorExceptionHandler, new FixedLengthGasSensorEventAnalyser(10), 1, (byte) 1, (byte) 2)) {
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5, (byte) 6,
 					(byte) 7, (byte) 8, (byte) 9, (byte) 45, (byte) 1, (byte) 2, (byte) 9, (byte) 8, (byte) 7, (byte) 6,
 					(byte) 5, (byte) 4, (byte) 3, (byte) 45 });
@@ -111,7 +102,7 @@ public class AbstractGasSensorClientTest {
 		TestGasSensorEventListener testGasSensorEventListener = new TestGasSensorEventListener();
 		TestGasSensorExceptionHandler testGasSensorExceptionHandler = new TestGasSensorExceptionHandler();
 		try (TestGasSensorClient testGasSensorClient = new TestGasSensorClient(testGasSensorEventListener,
-				testGasSensorExceptionHandler, 10, 1, (byte) 1, (byte) 2)) {
+				testGasSensorExceptionHandler, new FixedLengthGasSensorEventAnalyser(10), 1, (byte) 1, (byte) 2)) {
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5, (byte) 6,
 					(byte) 7, (byte) 8, (byte) 9, (byte) 44 });
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 1, (byte) 2, (byte) 9, (byte) 8, (byte) 7, (byte) 6,
@@ -130,7 +121,7 @@ public class AbstractGasSensorClientTest {
 		TestGasSensorEventListener testGasSensorEventListener = new TestGasSensorEventListener();
 		TestGasSensorExceptionHandler testGasSensorExceptionHandler = new TestGasSensorExceptionHandler();
 		try (TestGasSensorClient testGasSensorClient = new TestGasSensorClient(testGasSensorEventListener,
-				testGasSensorExceptionHandler, 10, 1, (byte) 1, (byte) 2)) {
+				testGasSensorExceptionHandler, new FixedLengthGasSensorEventAnalyser(10), 1, (byte) 1, (byte) 2)) {
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 1, (byte) 2, (byte) 4, (byte) 5, (byte) 6, (byte) 7,
 					(byte) 8, (byte) 9, (byte) 45 });
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 1, (byte) 2, (byte) 9, (byte) 8, (byte) 7, (byte) 6,
@@ -149,7 +140,7 @@ public class AbstractGasSensorClientTest {
 		TestGasSensorEventListener testGasSensorEventListener = new TestGasSensorEventListener();
 		TestGasSensorExceptionHandler testGasSensorExceptionHandler = new TestGasSensorExceptionHandler();
 		try (TestGasSensorClient testGasSensorClient = new TestGasSensorClient(testGasSensorEventListener,
-				testGasSensorExceptionHandler, 10, 1, (byte) 1, (byte) 2)) {
+				testGasSensorExceptionHandler, new FixedLengthGasSensorEventAnalyser(10), 1, (byte) 1, (byte) 2)) {
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 1, (byte) 3, (byte) 4, (byte) 5, (byte) 6, (byte) 7,
 					(byte) 8, (byte) 9, (byte) 45 });
 			testGasSensorClient.onReadBytes(new byte[] { (byte) 1, (byte) 2, (byte) 9, (byte) 8, (byte) 7, (byte) 6,

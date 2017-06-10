@@ -2,15 +2,12 @@ package fr.romainmoreau.gassensor.client.common;
 
 import java.io.IOException;
 
-import fr.romainmoreau.gassensor.client.common.AbstractGasSensorClient;
-import fr.romainmoreau.gassensor.client.common.ChecksumUtils;
-
 public class TestGasSensorClient extends AbstractGasSensorClient<TestGasSensorEvent> {
 	public TestGasSensorClient(TestGasSensorEventListener testGasSensorEventListener,
-			TestGasSensorExceptionHandler testGasSensorExceptionHandler, int length, int checksumLength, byte... header)
-			throws IOException {
-		super("TEST", TestGasSensorReader::new, testGasSensorEventListener, testGasSensorExceptionHandler, length,
-				checksumLength, header);
+			TestGasSensorExceptionHandler testGasSensorExceptionHandler, GasSensorEventAnalyser gasSensorEventAnalyser,
+			int checksumLength, byte... header) throws IOException {
+		super("TEST", TestGasSensorReader::new, testGasSensorEventListener, testGasSensorExceptionHandler,
+				gasSensorEventAnalyser, checksumLength, header);
 	}
 
 	@Override
