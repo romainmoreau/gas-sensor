@@ -19,6 +19,8 @@ zph01:
   port-name: COM5 # Not required, activates the reading from the specified port of a ZPH01 sensor if the jssc profile is activated.
 mhz19:
   port-name: COM6 # Not required, activates the reading from the specified port of a MH-Z19 sensor if the jssc profile is activated.
+si7021:
+  port-name: COM7 # Not required, activates the reading from the specified port of a Si7021 sensor if the jssc profile is activated.
 spring:
   profiles:
     active: jssc # Profile jssc activates the reading from the sensors via the serial port communication. Profile mock activates the reading from mock sensors.
@@ -91,6 +93,14 @@ You can also add the clients one by one:
 <dependency>
 	<groupId>fr.romainmoreau.gassensor</groupId>
 	<artifactId>gas-sensor-client-mhz19</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
+</dependency>
+```
+* Si7021:
+```xml
+<dependency>
+	<groupId>fr.romainmoreau.gassensor</groupId>
+	<artifactId>gas-sensor-client-si7021</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 </dependency>
 ```
