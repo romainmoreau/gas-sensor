@@ -36,7 +36,7 @@ si7021:
       port-name: COM7 # Required
     -
       description: _Outside # Not required
-      port-name: COM7 # Required
+      port-name: COM8 # Required
 spring:
   profiles:
     active: jssc # Profile jssc activates the reading from the sensors via the serial port communication. Profile mock activates the reading from mock sensors.
