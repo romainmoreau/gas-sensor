@@ -8,9 +8,12 @@ import fr.romainmoreau.gassensor.client.common.GasSensorExceptionHandler;
 import fr.romainmoreau.gassensor.client.common.JsscPollerGasSensorReader;
 
 public class JsscMhZ19GasSensorClient extends MhZ19GasSensorClient {
-	public JsscMhZ19GasSensorClient(String portName, GasSensorEventListener<GasSensorEvent> gasSensorEventListener,
+	public JsscMhZ19GasSensorClient(String description, String portName,
+			GasSensorEventListener<GasSensorEvent> gasSensorEventListener,
 			GasSensorExceptionHandler gasSensorExceptionHandler) throws IOException {
-		super(c -> new JsscPollerGasSensorReader(c, portName, 1000, (byte) -1, (byte) 1, (byte) 134, (byte) 0, (byte) 0,
-				(byte) 0, (byte) 0, (byte) 0, (byte) 121), gasSensorEventListener, gasSensorExceptionHandler);
+		super(description,
+				c -> new JsscPollerGasSensorReader(c, portName, 1000, (byte) -1, (byte) 1, (byte) 134, (byte) 0,
+						(byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 121),
+				gasSensorEventListener, gasSensorExceptionHandler);
 	}
 }

@@ -14,10 +14,11 @@ import fr.romainmoreau.gassensor.client.common.GasSensorReaderFactory;
 import fr.romainmoreau.gassensor.client.common.GenericGasSensorEvent;
 
 public class MhZ19GasSensorClient extends AbstractGasSensorClient<GasSensorEvent> {
-	public MhZ19GasSensorClient(GasSensorReaderFactory<GasSensorEvent> gasSensorReaderFactory,
+	public MhZ19GasSensorClient(String description, GasSensorReaderFactory<GasSensorEvent> gasSensorReaderFactory,
 			GasSensorEventListener<GasSensorEvent> gasSensorEventListener,
 			GasSensorExceptionHandler gasSensorExceptionHandler) throws IOException {
-		super(MhZ19.SENSOR_NAME, gasSensorReaderFactory, gasSensorEventListener, gasSensorExceptionHandler,
+		super(description != null ? MhZ19.SENSOR_NAME + description : MhZ19.SENSOR_NAME, gasSensorReaderFactory,
+				gasSensorEventListener, gasSensorExceptionHandler,
 				new FixedLengthGasSensorEventAnalyser(MhZ19.EVENT_LENGTH), MhZ19.CHECKSUM_LENGTH, MhZ19.HEADER);
 	}
 

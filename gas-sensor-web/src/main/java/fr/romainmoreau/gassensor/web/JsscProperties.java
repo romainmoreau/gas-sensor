@@ -1,13 +1,15 @@
 package fr.romainmoreau.gassensor.web;
 
-public class JsscProperties {
-	private String portName;
+import java.util.List;
 
-	public String getPortName() {
-		return portName;
+public class JsscProperties {
+	private List<JsscGasSensor> gasSensors;
+
+	public List<JsscGasSensor> getGasSensors() {
+		return gasSensors;
 	}
 
-	public void setPortName(String portName) {
-		this.portName = portName;
+	public void setGasSensors(List<JsscGasSensor> gasSensors) {
+		this.gasSensors = gasSensors;
 	}
 }

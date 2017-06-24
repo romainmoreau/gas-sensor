@@ -14,10 +14,11 @@ import fr.romainmoreau.gassensor.client.common.GasSensorReaderFactory;
 import fr.romainmoreau.gassensor.client.common.GenericGasSensorEvent;
 
 public class Ze07GasSensorClient extends AbstractGasSensorClient<GasSensorEvent> {
-	public Ze07GasSensorClient(GasSensorReaderFactory<GasSensorEvent> gasSensorReaderFactory,
+	public Ze07GasSensorClient(String description, GasSensorReaderFactory<GasSensorEvent> gasSensorReaderFactory,
 			GasSensorEventListener<GasSensorEvent> gasSensorEventListener,
 			GasSensorExceptionHandler gasSensorExceptionHandler) throws IOException {
-		super(Ze07.SENSOR_NAME, gasSensorReaderFactory, gasSensorEventListener, gasSensorExceptionHandler,
+		super(description != null ? Ze07.SENSOR_NAME + description : Ze07.SENSOR_NAME, gasSensorReaderFactory,
+				gasSensorEventListener, gasSensorExceptionHandler,
 				new FixedLengthGasSensorEventAnalyser(Ze07.EVENT_LENGTH), Ze07.CHECKSUM_LENGTH, Ze07.HEADER);
 	}
 

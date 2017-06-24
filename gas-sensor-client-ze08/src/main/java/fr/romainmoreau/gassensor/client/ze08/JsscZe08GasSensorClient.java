@@ -8,8 +8,10 @@ import fr.romainmoreau.gassensor.client.common.GasSensorExceptionHandler;
 import fr.romainmoreau.gassensor.client.common.JsscGasSensorReader;
 
 public class JsscZe08GasSensorClient extends Ze08GasSensorClient {
-	public JsscZe08GasSensorClient(String portName, GasSensorEventListener<GasSensorEvent> gasSensorEventListener,
+	public JsscZe08GasSensorClient(String description, String portName,
+			GasSensorEventListener<GasSensorEvent> gasSensorEventListener,
 			GasSensorExceptionHandler gasSensorExceptionHandler) throws IOException {
-		super(c -> new JsscGasSensorReader(c, portName), gasSensorEventListener, gasSensorExceptionHandler);
+		super(description, c -> new JsscGasSensorReader(c, portName), gasSensorEventListener,
+				gasSensorExceptionHandler);
 	}
 }

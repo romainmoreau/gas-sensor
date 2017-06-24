@@ -12,11 +12,12 @@ import fr.romainmoreau.gassensor.client.common.GasSensorReaderFactory;
 import fr.romainmoreau.gassensor.client.common.GenericGasSensorEvent;
 
 public class Si7021GasSensorClient extends AbstractGasSensorClient<GasSensorEvent> {
-	public Si7021GasSensorClient(GasSensorReaderFactory<GasSensorEvent> gasSensorReaderFactory,
+	public Si7021GasSensorClient(String description, GasSensorReaderFactory<GasSensorEvent> gasSensorReaderFactory,
 			GasSensorEventListener<GasSensorEvent> gasSensorEventListener,
 			GasSensorExceptionHandler gasSensorExceptionHandler) throws IOException {
-		super(Si7021.SENSOR_NAME, gasSensorReaderFactory, gasSensorEventListener, gasSensorExceptionHandler,
-				new Si7021GasSensorEventAnalyser(), Si7021.CHECKSUM_LENGTH, Si7021.HEADER);
+		super(description != null ? Si7021.SENSOR_NAME + description : Si7021.SENSOR_NAME, gasSensorReaderFactory,
+				gasSensorEventListener, gasSensorExceptionHandler, new Si7021GasSensorEventAnalyser(),
+				Si7021.CHECKSUM_LENGTH, Si7021.HEADER);
 	}
 
 	@Override

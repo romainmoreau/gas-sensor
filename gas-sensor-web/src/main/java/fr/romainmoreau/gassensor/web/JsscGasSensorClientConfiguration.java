@@ -1,29 +1,31 @@
 package fr.romainmoreau.gassensor.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import fr.romainmoreau.gassensor.client.common.GasSensorClient;
 import fr.romainmoreau.gassensor.client.mhz19.JsscMhZ19GasSensorClient;
-import fr.romainmoreau.gassensor.client.mhz19.MhZ19GasSensorClient;
 import fr.romainmoreau.gassensor.client.si7021.JsscSi7021GasSensorClient;
-import fr.romainmoreau.gassensor.client.si7021.Si7021GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze07.JsscZe07GasSensorClient;
-import fr.romainmoreau.gassensor.client.ze07.Ze07GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze08.JsscZe08GasSensorClient;
-import fr.romainmoreau.gassensor.client.ze08.Ze08GasSensorClient;
 import fr.romainmoreau.gassensor.client.zh03a.JsscZh03AGasSensorClient;
-import fr.romainmoreau.gassensor.client.zh03a.Zh03AGasSensorClient;
 import fr.romainmoreau.gassensor.client.zph01.JsscZph01GasSensorClient;
-import fr.romainmoreau.gassensor.client.zph01.Zph01GasSensorClient;
 
 @Profile("jssc")
 @Configuration
 public class JsscGasSensorClientConfiguration {
+	private static final Logger LOGGER = LoggerFactory.getLogger(JsscGasSensorClientConfiguration.class);
+
 	@Autowired
 	private SpringGasSensorEventListener springGasSensorEventListener;
 
@@ -48,45 +50,60 @@ public class JsscGasSensorClientConfiguration {
 	@Autowired
 	private Si7021JsscProperties si7021JsscProperties;
 
-	@Bean
-	@ConditionalOnProperty("ze07.port-name")
-	public Ze07GasSensorClient ze07GasSensorClient() throws IOException {
-		return new JsscZe07GasSensorClient(ze07JsscProperties.getPortName(), springGasSensorEventListener,
-				slf4JGasSensorExceptionHandler);
+	private List<GasSensorClient<?>> gasSensorClientList;
+
+	public JsscGasSensorClientConfiguration() {
+		gasSensorClientList = new ArrayList<>();
 	}
 
-	@Bean
-	@ConditionalOnProperty("ze08.port-name")
-	public Ze08GasSensorClient ze08GasSensorClient() throws IOException {
-		return new JsscZe08GasSensorClient(ze08JsscProperties.getPortName(), springGasSensorEventListener,
-				slf4JGasSensorExceptionHandler);
+	@PostConstruct
+	private void postConstruct() throws IOException {
+		if (ze07JsscProperties.getGasSensors() != null) {
+			for (JsscGasSensor jsscGasSensor : ze07JsscProperties.getGasSensors()) {
+				gasSensorClientList.add(new JsscZe07GasSensorClient(jsscGasSensor.getDescription(),
+						jsscGasSensor.getPortName(), springGasSensorEventListener, slf4JGasSensorExceptionHandler));
+			}
+		}
+		if (ze08JsscProperties.getGasSensors() != null) {
+			for (JsscGasSensor jsscGasSensor : ze08JsscProperties.getGasSensors()) {
+				gasSensorClientList.add(new JsscZe08GasSensorClient(jsscGasSensor.getDescription(),
+						jsscGasSensor.getPortName(), springGasSensorEventListener, slf4JGasSensorExceptionHandler));
+			}
+		}
+		if (zh03AJsscProperties.getGasSensors() != null) {
+			for (JsscGasSensor jsscGasSensor : zh03AJsscProperties.getGasSensors()) {
+				gasSensorClientList.add(new JsscZh03AGasSensorClient(jsscGasSensor.getDescription(),
+						jsscGasSensor.getPortName(), springGasSensorEventListener, slf4JGasSensorExceptionHandler));
+			}
+		}
+		if (zph01JsscProperties.getGasSensors() != null) {
+			for (JsscGasSensor jsscGasSensor : zph01JsscProperties.getGasSensors()) {
+				gasSensorClientList.add(new JsscZph01GasSensorClient(jsscGasSensor.getDescription(),
+						jsscGasSensor.getPortName(), springGasSensorEventListener, slf4JGasSensorExceptionHandler));
+			}
+		}
+		if (mhZ19JsscProperties.getGasSensors() != null) {
+			for (JsscGasSensor jsscGasSensor : mhZ19JsscProperties.getGasSensors()) {
+				gasSensorClientList.add(new JsscMhZ19GasSensorClient(jsscGasSensor.getDescription(),
+						jsscGasSensor.getPortName(), springGasSensorEventListener, slf4JGasSensorExceptionHandler));
+			}
+		}
+		if (si7021JsscProperties.getGasSensors() != null) {
+			for (JsscGasSensor jsscGasSensor : si7021JsscProperties.getGasSensors()) {
+				gasSensorClientList.add(new JsscSi7021GasSensorClient(jsscGasSensor.getDescription(),
+						jsscGasSensor.getPortName(), springGasSensorEventListener, slf4JGasSensorExceptionHandler));
+			}
+		}
 	}
 
-	@Bean
-	@ConditionalOnProperty("zh03a.port-name")
-	public Zh03AGasSensorClient zh03aGasSensorClient() throws IOException {
-		return new JsscZh03AGasSensorClient(zh03AJsscProperties.getPortName(), springGasSensorEventListener,
-				slf4JGasSensorExceptionHandler);
-	}
-
-	@Bean
-	@ConditionalOnProperty("zph01.port-name")
-	public Zph01GasSensorClient zph01GasSensorClient() throws IOException {
-		return new JsscZph01GasSensorClient(zph01JsscProperties.getPortName(), springGasSensorEventListener,
-				slf4JGasSensorExceptionHandler);
-	}
-
-	@Bean
-	@ConditionalOnProperty("mhz19.port-name")
-	public MhZ19GasSensorClient mhZ19GasSensorClient() throws IOException {
-		return new JsscMhZ19GasSensorClient(mhZ19JsscProperties.getPortName(), springGasSensorEventListener,
-				slf4JGasSensorExceptionHandler);
-	}
-
-	@Bean
-	@ConditionalOnProperty("si7021.port-name")
-	public Si7021GasSensorClient si7021GasSensorClient() throws IOException {
-		return new JsscSi7021GasSensorClient(si7021JsscProperties.getPortName(), springGasSensorEventListener,
-				slf4JGasSensorExceptionHandler);
+	@PreDestroy
+	private void preDestroy() {
+		for (GasSensorClient<?> gasSensorClient : gasSensorClientList) {
+			try {
+				gasSensorClient.close();
+			} catch (IOException e) {
+				LOGGER.error("Exception while closing gas sensor client", e);
+			}
+		}
 	}
 }

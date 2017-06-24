@@ -9,10 +9,12 @@ import fr.romainmoreau.gassensor.client.common.GasSensorEventListener;
 import fr.romainmoreau.gassensor.client.common.GasSensorExceptionHandler;
 
 public class MockZph01GasSensorClient extends Zph01GasSensorClient {
-	public MockZph01GasSensorClient(Supplier<Long> sleepMillisSupplier, Supplier<GasSensorEvent> gasSensorEventSupplier,
-			Consumer<Exception> exceptionConsumer, GasSensorEventListener<GasSensorEvent> gasSensorEventListener,
+	public MockZph01GasSensorClient(String description, Supplier<Long> sleepMillisSupplier,
+			Supplier<GasSensorEvent> gasSensorEventSupplier, Consumer<Exception> exceptionConsumer,
+			GasSensorEventListener<GasSensorEvent> gasSensorEventListener,
 			GasSensorExceptionHandler gasSensorExceptionHandler) throws IOException {
-		super(c -> new Zph01MockGasSensorReader(c, sleepMillisSupplier, gasSensorEventSupplier, exceptionConsumer),
+		super(description,
+				c -> new Zph01MockGasSensorReader(c, sleepMillisSupplier, gasSensorEventSupplier, exceptionConsumer),
 				gasSensorEventListener, gasSensorExceptionHandler);
 	}
 }
