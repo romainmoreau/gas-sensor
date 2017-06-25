@@ -17,7 +17,7 @@ public class Si7021GasSensorClient extends AbstractGasSensorClient<GasSensorEven
 			GasSensorExceptionHandler gasSensorExceptionHandler) throws IOException {
 		super(description != null ? Si7021.SENSOR_NAME + description : Si7021.SENSOR_NAME, gasSensorReaderFactory,
 				gasSensorEventListener, gasSensorExceptionHandler, new Si7021GasSensorEventAnalyser(),
-				Si7021.CHECKSUM_LENGTH, Si7021.HEADER);
+				new Si7021GasSensorEventValidator(), Si7021.HEADER);
 	}
 
 	@Override
@@ -31,10 +31,5 @@ public class Si7021GasSensorClient extends AbstractGasSensorClient<GasSensorEven
 				new GasSensing(Si7021.HUMIDITY_DESCRIPTION,
 						new BigDecimal(eventSplits[2].substring(Si7021.HUMIDITY_PREFIX.length()).trim()),
 						Si7021.HUMIDITY_UNIT));
-	}
-
-	@Override
-	protected byte[] calculateChecksum(byte[] event) {
-		throw new UnsupportedOperationException();
 	}
 }

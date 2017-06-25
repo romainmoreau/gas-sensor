@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import fr.romainmoreau.gassensor.client.common.AbstractGasSensorClient;
 import fr.romainmoreau.gassensor.client.common.ByteUtils;
+import fr.romainmoreau.gassensor.client.common.ChecksumGasSensorEventValidator;
 import fr.romainmoreau.gassensor.client.common.ChecksumUtils;
 import fr.romainmoreau.gassensor.client.common.FixedLengthGasSensorEventAnalyser;
 import fr.romainmoreau.gassensor.client.common.GasSensing;
@@ -19,17 +20,14 @@ public class Ze08GasSensorClient extends AbstractGasSensorClient<GasSensorEvent>
 			GasSensorExceptionHandler gasSensorExceptionHandler) throws IOException {
 		super(description != null ? Ze08.SENSOR_NAME + description : Ze08.SENSOR_NAME, gasSensorReaderFactory,
 				gasSensorEventListener, gasSensorExceptionHandler,
-				new FixedLengthGasSensorEventAnalyser(Ze08.EVENT_LENGTH), Ze08.CHECKSUM_LENGTH, Ze08.HEADER);
+				new FixedLengthGasSensorEventAnalyser(Ze08.EVENT_LENGTH), new ChecksumGasSensorEventValidator(
+						Ze08.CHECKSUM_LENGTH, event -> new byte[] { ChecksumUtils.notSum(event) }),
+				Ze08.HEADER);
 	}
 
 	@Override
 	protected GasSensorEvent eventToGasSensorEvent(byte[] event) {
 		return new GenericGasSensorEvent(new GasSensing(Ze08.CH2O_DESCRIPTION,
 				ByteUtils.highByteLowByteToBigDecimal(event[4], event[5]), Ze08.CH2O_UNIT));
-	}
-
-	@Override
-	protected byte[] calculateChecksum(byte[] event) {
-		return new byte[] { ChecksumUtils.notSum(event) };
 	}
 }

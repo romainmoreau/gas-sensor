@@ -2,7 +2,6 @@ package fr.romainmoreau.gassensor.client.si7021;
 
 public class Si7021 {
 	public static final String SENSOR_NAME = "Si7021";
-	public static final int CHECKSUM_LENGTH = 0;
 	public static final byte[] HEADER = "id:".getBytes();
 	public static final String TEMPERATURE_DESCRIPTION = "Temperature";
 	public static final String TEMPERATURE_UNIT = "°C";
@@ -14,4 +13,5 @@ public class Si7021 {
 	public static final int EVENT_SEPARATOR_COUNT = 3;
 	public static final String TEMPERATURE_PREFIX = "tem:";
 	public static final String HUMIDITY_PREFIX = "hum:";
+	public static final String EVENT_REGEX = "^id:[0-9]{1,3} tem:-?[0-9]{1,3}\\.[0-9] hum:[0-9]{1,3}\\.[0-9] $";
 }

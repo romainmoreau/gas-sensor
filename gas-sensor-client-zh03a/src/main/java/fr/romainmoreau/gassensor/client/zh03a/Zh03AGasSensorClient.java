@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import fr.romainmoreau.gassensor.client.common.AbstractGasSensorClient;
 import fr.romainmoreau.gassensor.client.common.ByteUtils;
+import fr.romainmoreau.gassensor.client.common.ChecksumGasSensorEventValidator;
 import fr.romainmoreau.gassensor.client.common.ChecksumUtils;
 import fr.romainmoreau.gassensor.client.common.FixedLengthGasSensorEventAnalyser;
 import fr.romainmoreau.gassensor.client.common.GasSensing;
@@ -19,7 +20,8 @@ public class Zh03AGasSensorClient extends AbstractGasSensorClient<GasSensorEvent
 			GasSensorExceptionHandler gasSensorExceptionHandler) throws IOException {
 		super(description != null ? Zh03A.SENSOR_NAME + description : Zh03A.SENSOR_NAME, gasSensorReaderFactory,
 				gasSensorEventListener, gasSensorExceptionHandler,
-				new FixedLengthGasSensorEventAnalyser(Zh03A.EVENT_LENGTH), Zh03A.CHECKSUM_LENGTH, Zh03A.HEADER);
+				new FixedLengthGasSensorEventAnalyser(Zh03A.EVENT_LENGTH),
+				new ChecksumGasSensorEventValidator(Zh03A.CHECKSUM_LENGTH, ChecksumUtils::twoBytesSum), Zh03A.HEADER);
 	}
 
 	@Override
@@ -31,10 +33,5 @@ public class Zh03AGasSensorClient extends AbstractGasSensorClient<GasSensorEvent
 						Zh03A.PM_UNIT),
 				new GasSensing(Zh03A.PM10_DESCRIPTION, ByteUtils.highByteLowByteToBigDecimal(event[14], event[15]),
 						Zh03A.PM_UNIT));
-	}
-
-	@Override
-	protected byte[] calculateChecksum(byte[] event) {
-		return ChecksumUtils.twoBytesSum(event);
 	}
 }
