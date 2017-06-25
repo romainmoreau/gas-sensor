@@ -10,17 +10,33 @@ After building the projects, the web application binary will be located at:
 You need to create an `application.yml` next to the binary before running it:
 ```yml
 ze07:
-  port-name: COM2 # Not required, activates the reading from the specified port of a ZE07 sensor if the jssc profile is activated.
+  gas-sensors: # Not required, activates the reading from the specified ports of ZE07 sensors if the jssc profile is activated.
+    -
+      port-name: COM2 # Required
 ze08:
-  port-name: COM3 # Not required, activates the reading from the specified port of a ZE08 sensor if the jssc profile is activated.
+  gas-sensors: # Not required, activates the reading from the specified ports of ZE08 sensors if the jssc profile is activated.
+    -
+      port-name: COM3 # Required
 zh03a:
-  port-name: COM4 # Not required, activates the reading from the specified port of a ZH03A sensor if the jssc profile is activated.
+  gas-sensors: # Not required, activates the reading from the specified ports of ZH03A sensors if the jssc profile is activated.
+    -
+      port-name: COM4 # Required
 zph01:
-  port-name: COM5 # Not required, activates the reading from the specified port of a ZPH01 sensor if the jssc profile is activated.
+  gas-sensors: # Not required, activates the reading from the specified ports of ZPH01 sensors if the jssc profile is activated.
+    -
+      port-name: COM5 # Required
 mhz19:
-  port-name: COM6 # Not required, activates the reading from the specified port of a MH-Z19 sensor if the jssc profile is activated.
+  gas-sensors: # Not required, activates the reading from the specified ports of MH-Z19 sensors if the jssc profile is activated.
+    -
+      port-name: COM6 # Required
 si7021:
-  port-name: COM7 # Not required, activates the reading from the specified port of a Si7021 sensor if the jssc profile is activated.
+  gas-sensors: # Not required, activates the reading from the specified ports of Si7021 sensors if the jssc profile is activated.
+    -
+      description: _Inside # Not required
+      port-name: COM7 # Required
+    -
+      description: _Outside # Not required
+      port-name: COM8 # Required
 spring:
   profiles:
     active: jssc # Profile jssc activates the reading from the sensors via the serial port communication. Profile mock activates the reading from mock sensors.
