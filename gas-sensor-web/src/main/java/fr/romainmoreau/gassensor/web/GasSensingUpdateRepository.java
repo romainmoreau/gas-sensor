@@ -15,4 +15,7 @@ public interface GasSensingUpdateRepository extends JpaRepository<GasSensingUpda
 
 	@Query("select distinct sensorName,description,unit from GasSensingUpdate u")
 	List<Object[]> findDistinctSensorNameDescriptionUnit();
+
+	@Query("select u1 from GasSensingUpdate u1 where u1.id in (select max(u2.id) from GasSensingUpdate u2 group by u2.sensorName,u2.description,u2.unit)")
+	List<GasSensingUpdate> findLatestUpdates();
 }
