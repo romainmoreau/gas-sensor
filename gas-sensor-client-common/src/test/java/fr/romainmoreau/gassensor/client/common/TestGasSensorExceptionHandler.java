@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.junit.Assert;
 
-import fr.romainmoreau.gassensor.client.common.GasSensorExceptionHandler;
-
 public class TestGasSensorExceptionHandler implements GasSensorExceptionHandler {
 	private List<Byte> ignoredByteList;
 
@@ -15,11 +13,11 @@ public class TestGasSensorExceptionHandler implements GasSensorExceptionHandler 
 	}
 
 	@Override
-	public void onReadBytesError(Exception exception) {
+	public void onReadBytesError(String sensorName, Exception exception) {
 	}
 
 	@Override
-	public void onIgnoredByte(byte ignoredByte, String cause) {
+	public void onIgnoredByte(String sensorName, byte ignoredByte, String cause) {
 		ignoredByteList.add(ignoredByte);
 	}
 

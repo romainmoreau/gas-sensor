@@ -13,13 +13,13 @@ public class Slf4JGasSensorExceptionHandler implements GasSensorExceptionHandler
 	private static final Logger LOGGER = LoggerFactory.getLogger(Slf4JGasSensorExceptionHandler.class);
 
 	@Override
-	public void onIgnoredByte(byte ignoredByte, String cause) {
-		LOGGER.warn("byte {} ignored because {}", ignoredByte, cause);
+	public void onIgnoredByte(String sensorName, byte ignoredByte, String cause) {
+		LOGGER.warn("[{}] byte {} ignored because {}", sensorName, ignoredByte, cause);
 	}
 
 	@Override
-	public void onReadBytesError(Exception exception) {
-		LOGGER.error("Exception while reading bytes", exception);
+	public void onReadBytesError(String sensorName, Exception exception) {
+		LOGGER.error("[{}] Exception while reading bytes", sensorName, exception);
 	}
 
 	@Override

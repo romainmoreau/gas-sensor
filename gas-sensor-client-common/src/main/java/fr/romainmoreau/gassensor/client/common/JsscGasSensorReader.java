@@ -41,7 +41,7 @@ public class JsscGasSensorReader implements GasSensorReader {
 				gasSensorClient.onReadBytes(readBytes);
 			}
 		} catch (Exception e) {
-			gasSensorClient.getGasSensorExceptionHandler().onReadBytesError(e);
+			gasSensorClient.getGasSensorExceptionHandler().onReadBytesError(gasSensorClient.getSensorName(), e);
 		}
 	}
 }

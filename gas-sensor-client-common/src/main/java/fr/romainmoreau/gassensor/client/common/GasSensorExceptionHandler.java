@@ -1,7 +1,7 @@
 package fr.romainmoreau.gassensor.client.common;
 
 public interface GasSensorExceptionHandler {
-	void onIgnoredByte(byte ignoredByte, String cause);
+	void onIgnoredByte(String sensorName, byte ignoredByte, String cause);
 
-	void onReadBytesError(Exception exception);
+	void onReadBytesError(String sensorName, Exception exception);
 }

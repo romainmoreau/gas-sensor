@@ -80,7 +80,7 @@ public abstract class AbstractGasSensorClient<E extends GasSensorEvent> implemen
 		while (buffer.size() >= header.length) {
 			byte[] eventHeader = getHeader();
 			if (!Arrays.equals(header, eventHeader)) {
-				gasSensorExceptionHandler.onIgnoredByte(buffer.remove(0),
+				gasSensorExceptionHandler.onIgnoredByte(sensorName, buffer.remove(0),
 						"received header " + Arrays.toString(eventHeader) + " is different from expected header "
 								+ Arrays.toString(header));
 			} else {
@@ -94,7 +94,7 @@ public abstract class AbstractGasSensorClient<E extends GasSensorEvent> implemen
 		if (gasSensorEventValidator.isValid(event)) {
 			onEvent(event);
 		} else {
-			gasSensorExceptionHandler.onIgnoredByte(buffer.remove(0),
+			gasSensorExceptionHandler.onIgnoredByte(sensorName, buffer.remove(0),
 					"event " + Arrays.toString(event) + " is not valid");
 		}
 		checkForEvent();

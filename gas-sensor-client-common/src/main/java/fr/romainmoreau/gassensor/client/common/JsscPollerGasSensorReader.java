@@ -29,7 +29,7 @@ public class JsscPollerGasSensorReader extends JsscGasSensorReader {
 				} catch (InterruptedException e) {
 				}
 			} catch (Exception e) {
-				gasSensorClient.getGasSensorExceptionHandler().onReadBytesError(e);
+				gasSensorClient.getGasSensorExceptionHandler().onReadBytesError(gasSensorClient.getSensorName(), e);
 			}
 		}
 	}
