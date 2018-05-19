@@ -19,16 +19,17 @@ public class Si7021MockGasSensorReader extends MockGasSensorReader<GasSensorEven
 	protected byte[] gasSensorEventToEvent(GasSensorEvent gasSensorEvent) {
 		StringBuffer stringBuffer = new StringBuffer();
 		stringBuffer.append(new String(Si7021.HEADER));
+		stringBuffer.append(0);
 		stringBuffer.append(Si7021.SEPARATOR_STRING);
 		stringBuffer.append(Si7021.TEMPERATURE_PREFIX);
 		stringBuffer.append(gasSensorEvent.getGasSensingList().stream()
 				.filter(g -> g.getDescription().equals(Si7021.TEMPERATURE_DESCRIPTION)).map(GasSensing::getValue)
-				.findFirst().get().intValueExact());
+				.findFirst().get().toPlainString());
 		stringBuffer.append(Si7021.SEPARATOR_STRING);
 		stringBuffer.append(Si7021.HUMIDITY_PREFIX);
 		stringBuffer.append(gasSensorEvent.getGasSensingList().stream()
 				.filter(g -> g.getDescription().equals(Si7021.HUMIDITY_DESCRIPTION)).map(GasSensing::getValue)
-				.findFirst().get().intValueExact());
+				.findFirst().get().toPlainString());
 		stringBuffer.append(Si7021.SEPARATOR_STRING);
 		return stringBuffer.toString().getBytes();
 	}
