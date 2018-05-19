@@ -18,6 +18,7 @@
 		<module>gas-sensor-client-ze08</module>
 		<module>gas-sensor-client-mhz19</module>
 		<module>gas-sensor-client-si7021</module>
+		<module>gas-sensor-client-sds011</module>
 		<module>gas-sensor-client-all</module>
 		<module>gas-sensor-web</module>
 	</modules>
@@ -59,6 +60,11 @@
 			<dependency>
 				<groupId>fr.romainmoreau.gassensor</groupId>
 				<artifactId>gas-sensor-client-si7021</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>fr.romainmoreau.gassensor</groupId>
+				<artifactId>gas-sensor-client-sds011</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

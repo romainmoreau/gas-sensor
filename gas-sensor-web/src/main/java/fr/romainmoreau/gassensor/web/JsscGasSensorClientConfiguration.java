@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Profile;
 
 import fr.romainmoreau.gassensor.client.common.GasSensorClient;
 import fr.romainmoreau.gassensor.client.mhz19.JsscMhZ19GasSensorClient;
+import fr.romainmoreau.gassensor.client.sds011.JsscSds011GasSensorClient;
 import fr.romainmoreau.gassensor.client.si7021.JsscSi7021GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze07.JsscZe07GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze08.JsscZe08GasSensorClient;
@@ -49,6 +50,9 @@ public class JsscGasSensorClientConfiguration {
 
 	@Autowired
 	private Si7021JsscProperties si7021JsscProperties;
+
+	@Autowired
+	private Sds011JsscProperties sds011JsscProperties;
 
 	private List<GasSensorClient<?>> gasSensorClientList;
 
@@ -91,6 +95,12 @@ public class JsscGasSensorClientConfiguration {
 		if (si7021JsscProperties.getGasSensors() != null) {
 			for (JsscGasSensor jsscGasSensor : si7021JsscProperties.getGasSensors()) {
 				gasSensorClientList.add(new JsscSi7021GasSensorClient(jsscGasSensor.getDescription(),
+						jsscGasSensor.getPortName(), springGasSensorEventListener, slf4JGasSensorExceptionHandler));
+			}
+		}
+		if (sds011JsscProperties.getGasSensors() != null) {
+			for (JsscGasSensor jsscGasSensor : sds011JsscProperties.getGasSensors()) {
+				gasSensorClientList.add(new JsscSds011GasSensorClient(jsscGasSensor.getDescription(),
 						jsscGasSensor.getPortName(), springGasSensorEventListener, slf4JGasSensorExceptionHandler));
 			}
 		}
