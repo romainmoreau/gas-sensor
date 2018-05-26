@@ -6,49 +6,51 @@
 </head>
 <body>
 	<div
-		th:each="sensorNameDescriptionUnitEntry : ${sensorNameDescriptionUnitMap}">
-		<h3 th:text="${sensorNameDescriptionUnitEntry.key}"></h3>
+		th:each="sensorNameGasSensingUpdatesRangesEntry : ${sensorNameGasSensingUpdatesRangesMap}">
+		<h3 th:text="${sensorNameGasSensingUpdatesRangesEntry.key}"></h3>
 		<table>
 			<tr
-				th:each="sensorNameDescriptionUnit : ${sensorNameDescriptionUnitEntry.value}">
-				<td th:text="${sensorNameDescriptionUnit[1]}"></td>
-				<td th:text="${sensorNameDescriptionUnit[2]}"></td>
+				th:each="sensorNameGasSensingUpdatesRange : ${sensorNameGasSensingUpdatesRangesEntry.value}">
+				<td th:text="${sensorNameGasSensingUpdatesRange.description}"></td>
+				<td th:text="${sensorNameGasSensingUpdatesRange.unit}"></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/minute(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">Minute</a></td>
+					th:href="@{/chart/{sensorName}/{description}/minute(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">Minute</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/5-minutes(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">5 minutes</a></td>
+					th:href="@{/chart/{sensorName}/{description}/5-minutes(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">5 minutes</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/15-minutes(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">15 minutes</a></td>
+					th:href="@{/chart/{sensorName}/{description}/15-minutes(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">15 minutes</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/30-minutes(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">30 minutes</a></td>
+					th:href="@{/chart/{sensorName}/{description}/30-minutes(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">30 minutes</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/hour(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">Hour</a></td>
+					th:href="@{/chart/{sensorName}/{description}/hour(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">Hour</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/2-hours(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">2
+					th:href="@{/chart/{sensorName}/{description}/2-hours(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">2
 						hours</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/3-hours(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">3
+					th:href="@{/chart/{sensorName}/{description}/3-hours(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">3
 						hours</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/6-hours(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">6
+					th:href="@{/chart/{sensorName}/{description}/6-hours(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">6
 						hours</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/12-hours(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">12
+					th:href="@{/chart/{sensorName}/{description}/12-hours(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">12
 						hours</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/day(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">Day</a></td>
+					th:href="@{/chart/{sensorName}/{description}/day(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">Day</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/2-days(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">2
+					th:href="@{/chart/{sensorName}/{description}/2-days(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">2
 						days</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/3-days(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">3
+					th:href="@{/chart/{sensorName}/{description}/3-days(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">3
 						days</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/7-days(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">7
+					th:href="@{/chart/{sensorName}/{description}/7-days(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">7
 						days</a></td>
 				<td><a
-					th:href="@{/chart/{sensorName}/{description}/14-days(sensorName=${sensorNameDescriptionUnit[0]},description=${sensorNameDescriptionUnit[1]},unit=${sensorNameDescriptionUnit[2]})}">14
+					th:href="@{/chart/{sensorName}/{description}/14-days(sensorName=${sensorNameGasSensingUpdatesRange.sensorName},description=${sensorNameGasSensingUpdatesRange.description},unit=${sensorNameGasSensingUpdatesRange.unit})}">14
 						days</a></td>
+				<td th:text="'Min: '+${sensorNameGasSensingUpdatesRange.minLocalDateTime}"></td>
+				<td th:text="'Max: '+${sensorNameGasSensingUpdatesRange.maxLocalDateTime}"></td>
 			</tr>
 		</table>
 	</div>

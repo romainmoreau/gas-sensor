@@ -11,17 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import fr.romainmoreau.gassensor.web.data.GasSensingUpdateRepository;
+import fr.romainmoreau.gassensor.web.data.GasSensingUpdatesRange;
+import fr.romainmoreau.gassensor.web.data.GasSensingUpdatesRangeRepository;
 
 @Controller
 public class GasSensingUpdateChartController {
 	@Autowired
-	private GasSensingUpdateRepository gasSensingUpdateRepository;
+	private GasSensingUpdatesRangeRepository gasSensingUpdatesRangeRepository;
 
 	@RequestMapping(value = "/charts", method = RequestMethod.GET)
 	private String getGasSensors(Model model) {
-		model.addAttribute("sensorNameDescriptionUnitMap", gasSensingUpdateRepository
-				.findDistinctSensorNameDescriptionUnit().stream().collect(Collectors.groupingBy(e -> (String) e[0])));
+		model.addAttribute("sensorNameGasSensingUpdatesRangesMap", gasSensingUpdatesRangeRepository.findAll().stream()
+				.collect(Collectors.groupingBy(GasSensingUpdatesRange::getSensorName)));
 		return "gassensors";
 	}
 

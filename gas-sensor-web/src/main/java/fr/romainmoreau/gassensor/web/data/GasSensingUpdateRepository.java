@@ -13,8 +13,8 @@ public interface GasSensingUpdateRepository extends JpaRepository<GasSensingUpda
 	List<GasSensingUpdate> findBySensorNameAndDescriptionAndUnitAndLocalDateTimeBetweenOrderByIdDesc(String sensorName,
 			String description, String unit, LocalDateTime minLocalDateTime, LocalDateTime maxLocalDateTime);
 
-	@Query("select distinct sensorName,description,unit from GasSensingUpdate u")
-	List<Object[]> findDistinctSensorNameDescriptionUnit();
+	@Query("select sensorName,description,unit,min(localDateTime),max(localDateTime) from GasSensingUpdate u group by sensorName,description,unit")
+	List<Object[]> findAllDistinctSensorNameDescriptionUnitWithRange();
 
 	@Query("select u1 from GasSensingUpdate u1 where u1.id in (select max(u2.id) from GasSensingUpdate u2 group by u2.sensorName,u2.description,u2.unit)")
 	List<GasSensingUpdate> findLatestUpdates();
