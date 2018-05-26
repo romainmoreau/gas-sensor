@@ -75,18 +75,20 @@ function updateChart() {
 }
 
 function init() {
-	updateChart();
-	var webSocket = new SockJS(stompEndpointUrl);
-	var stompClient = Stomp.over(webSocket);
-	stompClient.connect({}, function() {
-		stompClient.subscribe('/updates/' + sensorName + '/' + description
-				+ '/' + unit, function(update) {
-			updates.push(JSON.parse(update.body));
-			updateChart();
+	updateChart(); 
+	if (streaming) {
+		var webSocket = new SockJS(stompEndpointUrl);
+		var stompClient = Stomp.over(webSocket);
+		stompClient.connect({}, function() {
+			stompClient.subscribe('/updates/' + sensorName + '/' + description
+					+ '/' + unit, function(update) {
+				updates.push(JSON.parse(update.body));
+				updateChart();
+			});
+		}, function(error) {
+			alert(error);
 		});
-	}, function(error) {
-		alert(error);
-	});
+	}
 }
 
 function fetchUpdates() {
