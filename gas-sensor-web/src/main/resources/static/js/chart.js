@@ -68,8 +68,8 @@ function updateChart() {
 			animation : {
 				duration : 0
 			},
-			maintainAspectRatio: false,
-			events: []
+			maintainAspectRatio : false,
+			events : []
 		}
 	});
 }
@@ -93,6 +93,13 @@ function fetchUpdates() {
 	$.getJSON("/updates/" + sensorName + "/" + description + "/" + beginning
 			+ "/" + end + "?unit=" + encodeURI(unit), function(response) {
 		updates = response;
+		if (simple) {
+			updates.forEach(function(update) {
+				update.x = moment(update.localDateTime).valueOf();
+				update.y = update.value;
+			});
+			updates = simplify(updates, 1, true);
+		}
 		init();
 	});
 }
