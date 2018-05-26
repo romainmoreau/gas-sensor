@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web;
+package fr.romainmoreau.gassensor.web.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;

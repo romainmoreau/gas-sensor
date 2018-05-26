@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web;
+package fr.romainmoreau.gassensor.web.configuration;
 
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;

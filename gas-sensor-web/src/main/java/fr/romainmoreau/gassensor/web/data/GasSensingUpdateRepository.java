@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web;
+package fr.romainmoreau.gassensor.web.data;
 
 import java.time.LocalDateTime;
 import java.util.List;

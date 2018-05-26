@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web;
+package fr.romainmoreau.gassensor.web.mock;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,6 +29,8 @@ import fr.romainmoreau.gassensor.client.zh03a.MockZh03AGasSensorClient;
 import fr.romainmoreau.gassensor.client.zh03a.RandomZh03AGasSensorEventSupplier;
 import fr.romainmoreau.gassensor.client.zph01.MockZph01GasSensorClient;
 import fr.romainmoreau.gassensor.client.zph01.RandomZph01GasSensorEventSupplier;
+import fr.romainmoreau.gassensor.web.common.Slf4JGasSensorExceptionHandler;
+import fr.romainmoreau.gassensor.web.common.SpringGasSensorEventListener;
 
 @Profile("mock")
 @Configuration

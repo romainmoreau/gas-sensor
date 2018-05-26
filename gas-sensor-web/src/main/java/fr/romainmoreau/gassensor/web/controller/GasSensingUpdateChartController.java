@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web;
+package fr.romainmoreau.gassensor.web.controller;
 
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import fr.romainmoreau.gassensor.web.data.GasSensingUpdateRepository;
 
 @Controller
 public class GasSensingUpdateChartController {

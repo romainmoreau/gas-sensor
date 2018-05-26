@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web;
+package fr.romainmoreau.gassensor.web.jssc;
 
 public class JsscGasSensor {
 	private String description;

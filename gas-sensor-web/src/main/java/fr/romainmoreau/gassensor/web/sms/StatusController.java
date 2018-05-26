@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web;
+package fr.romainmoreau.gassensor.web.sms;
 
 import java.io.IOException;
 
@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.romainmoreau.gassensor.web.data.GasSensingUpdate;
+import fr.romainmoreau.gassensor.web.data.GasSensingUpdateRepository;
 import fr.romainmoreau.gsmmodem.client.api.GsmModemClient;
 import fr.romainmoreau.gsmmodem.client.api.GsmModemException;
 

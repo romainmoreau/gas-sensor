@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web;
+package fr.romainmoreau.gassensor.web.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import fr.romainmoreau.gassensor.web.data.GasSensingInterval;
+import fr.romainmoreau.gassensor.web.data.GasSensingIntervalRepository;
+import fr.romainmoreau.gassensor.web.data.GasSensingUpdate;
+import fr.romainmoreau.gassensor.web.data.GasSensingUpdateRepository;
 
 @RestController
 public class GasSensingUpdateController {

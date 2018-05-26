@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web;
+package fr.romainmoreau.gassensor.web.sms;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;

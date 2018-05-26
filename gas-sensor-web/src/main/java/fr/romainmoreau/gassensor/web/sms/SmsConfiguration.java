@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web;
+package fr.romainmoreau.gassensor.web.sms;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;

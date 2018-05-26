@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web;
+package fr.romainmoreau.gassensor.web.jssc;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +21,8 @@ import fr.romainmoreau.gassensor.client.ze07.JsscZe07GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze08.JsscZe08GasSensorClient;
 import fr.romainmoreau.gassensor.client.zh03a.JsscZh03AGasSensorClient;
 import fr.romainmoreau.gassensor.client.zph01.JsscZph01GasSensorClient;
+import fr.romainmoreau.gassensor.web.common.Slf4JGasSensorExceptionHandler;
+import fr.romainmoreau.gassensor.web.common.SpringGasSensorEventListener;
 
 @Profile("jssc")
 @Configuration

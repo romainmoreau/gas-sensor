@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web;
+package fr.romainmoreau.gassensor.web.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import fr.romainmoreau.gassensor.client.common.GasSensing;
 import fr.romainmoreau.gassensor.client.common.GasSensorEvent;
+import fr.romainmoreau.gassensor.web.common.GasSensorApplicationEvent;
 
 @Component
 public class JpaGasSensorEventListener {
