@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.romainmoreau.gassensor.web.data.GasSensingInterval;
+import fr.romainmoreau.gassensor.datamodel.GasSensingInterval;
+import fr.romainmoreau.gassensor.datamodel.GasSensingUpdate;
+import fr.romainmoreau.gassensor.datamodel.GasSensingUpdatesRange;
 import fr.romainmoreau.gassensor.web.data.GasSensingIntervalRepository;
-import fr.romainmoreau.gassensor.web.data.GasSensingUpdate;
 import fr.romainmoreau.gassensor.web.data.GasSensingUpdateRepository;
+import fr.romainmoreau.gassensor.web.data.GasSensingUpdatesRangeRepository;
 
 @RestController
 public class GasSensingUpdateController {
@@ -22,6 +24,14 @@ public class GasSensingUpdateController {
 
 	@Autowired
 	private GasSensingIntervalRepository gasSensingIntervalRepository;
+
+	@Autowired
+	private GasSensingUpdatesRangeRepository gasSensingUpdatesRangeRepository;
+
+	@RequestMapping(path = "/ranges", method = RequestMethod.GET, produces = { "application/json" })
+	public List<GasSensingUpdatesRange> getRanges() {
+		return gasSensingUpdatesRangeRepository.findAll();
+	}
 
 	@RequestMapping(path = "/updates/{sensorName}/{description}/{beginning}/{end}", method = RequestMethod.GET, produces = {
 			"application/json" })

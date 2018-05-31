@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import fr.romainmoreau.gassensor.client.common.GasSensing;
 import fr.romainmoreau.gassensor.client.common.GasSensorEvent;
+import fr.romainmoreau.gassensor.datamodel.GasSensingUpdate;
 import fr.romainmoreau.gassensor.web.common.GasSensorApplicationEvent;
 
 @Component

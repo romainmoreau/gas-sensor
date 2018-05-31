@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web.data;
+package fr.romainmoreau.gassensor.datamodel;
 
 public enum GasSensingIntervalCategory {
 	FINE, WARNING, SEVERE;

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import fr.romainmoreau.gassensor.datamodel.GasSensingUpdatesRange;
+
 @Component
 public class GasSensingUpdatesRangeUpdater {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GasSensingUpdatesRangeUpdater.class);

@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import fr.romainmoreau.gassensor.datamodel.GasSensingUpdate;
+
 public interface GasSensingUpdateRepository extends JpaRepository<GasSensingUpdate, Long> {
 	GasSensingUpdate findFirstBySensorNameAndDescriptionAndUnitOrderByIdDesc(String sensorName, String description,
 			String unit);

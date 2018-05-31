@@ -1,4 +1,4 @@
-package fr.romainmoreau.gassensor.web.data;
+package fr.romainmoreau.gassensor.datamodel;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
