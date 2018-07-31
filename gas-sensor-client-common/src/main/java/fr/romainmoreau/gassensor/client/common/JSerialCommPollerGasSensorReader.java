@@ -2,7 +2,7 @@ package fr.romainmoreau.gassensor.client.common;
 
 import java.io.IOException;
 
-public class JsscPollerGasSensorReader extends JsscGasSensorReader {
+public class JSerialCommPollerGasSensorReader extends JSerialCommGasSensorReader {
 	private final long sleep;
 
 	private final byte[] command;
@@ -11,8 +11,8 @@ public class JsscPollerGasSensorReader extends JsscGasSensorReader {
 
 	private volatile boolean stop;
 
-	public JsscPollerGasSensorReader(GasSensorClient<?> gasSensorClient, String portName, long sleep, byte... command)
-			throws IOException {
+	public JSerialCommPollerGasSensorReader(GasSensorClient<?> gasSensorClient, String portName, long sleep,
+			byte... command) throws IOException {
 		super(gasSensorClient, portName);
 		this.sleep = sleep;
 		this.command = command;
@@ -23,7 +23,10 @@ public class JsscPollerGasSensorReader extends JsscGasSensorReader {
 	private void run() {
 		while (!stop) {
 			try {
-				serialPort.writeBytes(command);
+				int bytesWritten = serialPort.writeBytes(command, command.length);
+				if (bytesWritten != command.length) {
+					throw new IOException("Error writing bytes");
+				}
 				try {
 					Thread.sleep(sleep);
 				} catch (InterruptedException e) {

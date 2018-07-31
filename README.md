@@ -10,27 +10,27 @@ After building the projects, the web application binary will be located at:
 You need to create an `application.yml` next to the binary before running it:
 ```yml
 ze07:
-  gas-sensors: # Not required, activates the reading from the specified ports of ZE07 sensors if the jssc profile is activated.
+  gas-sensors: # Not required, activates the reading from the specified ports of ZE07 sensors if the jserialcomm profile is activated.
     -
       port-name: COM2 # Required
 ze08:
-  gas-sensors: # Not required, activates the reading from the specified ports of ZE08 sensors if the jssc profile is activated.
+  gas-sensors: # Not required, activates the reading from the specified ports of ZE08 sensors if the jserialcomm profile is activated.
     -
       port-name: COM3 # Required
 zh03a:
-  gas-sensors: # Not required, activates the reading from the specified ports of ZH03A sensors if the jssc profile is activated.
+  gas-sensors: # Not required, activates the reading from the specified ports of ZH03A sensors if the jserialcomm profile is activated.
     -
       port-name: COM4 # Required
 zph01:
-  gas-sensors: # Not required, activates the reading from the specified ports of ZPH01 sensors if the jssc profile is activated.
+  gas-sensors: # Not required, activates the reading from the specified ports of ZPH01 sensors if the jserialcomm profile is activated.
     -
       port-name: COM5 # Required
 mhz19:
-  gas-sensors: # Not required, activates the reading from the specified ports of MH-Z19 sensors if the jssc profile is activated.
+  gas-sensors: # Not required, activates the reading from the specified ports of MH-Z19 sensors if the jserialcomm profile is activated.
     -
       port-name: COM6 # Required
 si7021:
-  gas-sensors: # Not required, activates the reading from the specified ports of Si7021 sensors if the jssc profile is activated.
+  gas-sensors: # Not required, activates the reading from the specified ports of Si7021 sensors if the jserialcomm profile is activated.
     -
       description: _Inside # Not required
       port-name: COM7 # Required
@@ -39,7 +39,7 @@ si7021:
       port-name: COM8 # Required
 spring:
   profiles:
-    active: jssc # Profile jssc activates the reading from the sensors via the serial port communication. Profile mock activates the reading from mock sensors.
+    active: jserialcomm # Profile jserialcomm activates the reading from the sensors via the serial port communication. Profile mock activates the reading from mock sensors.
   datasource: 
     url: jdbc:h2:~/gas-sensor-web;DB_CLOSE_ON_EXIT=FALSE # Not required, by default a memory H2 database is created. PostgreSQL JDBC URL are also supported.
   jpa:
@@ -61,7 +61,7 @@ By default, go to `http://localhost:8080/charts` to see a page dynamically listi
 When you click on one of then, you will see something like that:
 ![](docs/PM2.5.png)
 ## Java clients
-If you need to use the gas sensors in your own Java projects, you can use the Java clients. The only external dependency used by these clients is JSSC for handling the serial port communication.
+If you need to use the gas sensors in your own Java projects, you can use the Java clients. The only external dependency used by these clients is jSerialComm for handling the serial port communication.
 
 If you want to use all the clients, you can add to your POM this shortcut dependency:
 ```xml
@@ -122,4 +122,4 @@ You can also add the clients one by one:
 ```
 
 To use a client, you just need to instanciate it and close it when it's not needed anymore.
-You can find a way to instanciate all the existing clients [here](https://github.com/romainmoreau/gas-sensor/blob/master/gas-sensor-web/src/main/java/fr/romainmoreau/gassensor/web/JsscGasSensorClientConfiguration.java).
+You can find a way to instanciate all the existing clients [here](https://github.com/romainmoreau/gas-sensor/blob/master/gas-sensor-web/src/main/java/fr/romainmoreau/gassensor/web/JSerialCommGasSensorClientConfiguration.java).

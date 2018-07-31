@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import fr.romainmoreau.epaper.client.api.EPaperClient;
-import fr.romainmoreau.epaper.client.jssc.JsscEPaperClient;
+import fr.romainmoreau.epaper.client.jserialcomm.JSerialCommEPaperClient;
 
 @Configuration
 public class EPaperConfiguration {
@@ -20,9 +20,9 @@ public class EPaperConfiguration {
 
 	@Bean
 	public EPaperClient ePaperClient() throws IOException {
-		LOGGER.info("Creating JSSC e-paper client using port name {}, timeout {} and receive timeout {}",
+		LOGGER.info("Creating jSerialComm e-paper client using port name {}, timeout {} and receive timeout {}",
 				ePaperProperties.getPortName(), ePaperProperties.getTimeout(), ePaperProperties.getReceiveTimeout());
-		return new JsscEPaperClient(ePaperProperties.getPortName(), ePaperProperties.getTimeout(),
+		return new JSerialCommEPaperClient(ePaperProperties.getPortName(), ePaperProperties.getTimeout(),
 				ePaperProperties.getReceiveTimeout());
 	}
 }

@@ -1,6 +1,6 @@
-package fr.romainmoreau.gassensor.web.jssc;
+package fr.romainmoreau.gassensor.web.jserialcomm;
 
-public class JsscGasSensor {
+public class JSerialCommGasSensor {
 	private String description;
 
 	private String portName;

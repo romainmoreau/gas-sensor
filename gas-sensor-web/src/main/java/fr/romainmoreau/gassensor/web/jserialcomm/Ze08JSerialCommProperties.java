@@ -1,11 +1,11 @@
-package fr.romainmoreau.gassensor.web.jssc;
+package fr.romainmoreau.gassensor.web.jserialcomm;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Profile("jssc")
+@Profile("jserialcomm")
 @Component
-@ConfigurationProperties(prefix = "sds011")
-public class Sds011JsscProperties extends JsscProperties {
+@ConfigurationProperties(prefix = "ze08")
+public class Ze08JSerialCommProperties extends JSerialCommProperties {
 }
