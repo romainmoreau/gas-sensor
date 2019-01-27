@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Profile;
 import fr.romainmoreau.gassensor.client.common.GasSensorClient;
 import fr.romainmoreau.gassensor.client.mhz19.JSerialCommMhZ19GasSensorClient;
 import fr.romainmoreau.gassensor.client.sds011.JSerialCommSds011GasSensorClient;
+import fr.romainmoreau.gassensor.client.sds018.JSerialCommSds018GasSensorClient;
 import fr.romainmoreau.gassensor.client.si7021.JSerialCommSi7021GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze07.JSerialCommZe07GasSensorClient;
 import fr.romainmoreau.gassensor.client.ze08.JSerialCommZe08GasSensorClient;
@@ -55,6 +56,9 @@ public class JSerialCommGasSensorClientConfiguration {
 
 	@Autowired
 	private Sds011JSerialCommProperties sds011JSerialCommProperties;
+
+	@Autowired
+	private Sds018JSerialCommProperties sds018JSerialCommProperties;
 
 	private List<GasSensorClient<?>> gasSensorClientList;
 
@@ -109,6 +113,13 @@ public class JSerialCommGasSensorClientConfiguration {
 		if (sds011JSerialCommProperties.getGasSensors() != null) {
 			for (JSerialCommGasSensor jSerialCommGasSensor : sds011JSerialCommProperties.getGasSensors()) {
 				gasSensorClientList.add(new JSerialCommSds011GasSensorClient(jSerialCommGasSensor.getDescription(),
+						jSerialCommGasSensor.getPortName(), springGasSensorEventListener,
+						slf4JGasSensorExceptionHandler));
+			}
+		}
+		if (sds018JSerialCommProperties.getGasSensors() != null) {
+			for (JSerialCommGasSensor jSerialCommGasSensor : sds018JSerialCommProperties.getGasSensors()) {
+				gasSensorClientList.add(new JSerialCommSds018GasSensorClient(jSerialCommGasSensor.getDescription(),
 						jSerialCommGasSensor.getPortName(), springGasSensorEventListener,
 						slf4JGasSensorExceptionHandler));
 			}
