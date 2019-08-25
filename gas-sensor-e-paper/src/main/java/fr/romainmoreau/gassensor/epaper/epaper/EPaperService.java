@@ -47,7 +47,8 @@ public class EPaperService {
 					.collect(Collectors.groupingBy(GasSensingUpdate::getDescription));
 			int rows = lastGasSensingUpdates.getLastGasSensingUpdateList().size()
 					+ descriptionLastGasSensingUpdateListMap.values().stream().mapToInt(List::size).map(s -> s - 1)
-							.sum();
+							.sum()
+					+ 1;
 			Table table = new Table();
 			table.getVerticalBorders().add(new Border(0, null));
 			table.getColumns().add(new Column(0.3));
@@ -108,6 +109,22 @@ public class EPaperService {
 					i++;
 				}
 			}
+			table.getCells()
+					.add(new Cell(0, i, 0, Color.WHITE,
+							new PaddedCellContent(0, 0, 0, 0,
+									new TextCellContent(Color.BLACK, Color.WHITE, FontSize.DOTS_32, 0,
+											HorizontalAlignment.RIGHT, VerticalAlignment.CENTER, "Update date time"))));
+			table.getCells()
+					.add(new Cell(2, i, 0, Color.WHITE,
+							new TextCellContent(Color.BLACK, Color.WHITE, FontSize.DOTS_32, 0, HorizontalAlignment.LEFT,
+									VerticalAlignment.CENTER,
+									lastGasSensingUpdates.getLocalDateTime().toLocalDate().toString())));
+			table.getCells()
+					.add(new Cell(3, i, 0, Color.WHITE,
+							new TextCellContent(Color.BLACK, Color.WHITE, FontSize.DOTS_32, 0,
+									HorizontalAlignment.RIGHT, VerticalAlignment.CENTER,
+									lastGasSensingUpdates.getLocalDateTime().toLocalTime().toString())));
+			i++;
 			ePaperClient.drawTable(0, 0, EPaperClient.WIDTH - 1, EPaperClient.HEIGHT - 1, table);
 			ePaperClient.refreshAndUpdate();
 		} catch (IOException | EPaperException e) {
