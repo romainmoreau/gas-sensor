@@ -56,10 +56,6 @@ To run it, you can:
 * Double click on `gas-sensor-web.exe` **(Windows specific)**
 * Run `java -jar gas-sensor-web.jar` **(All OS)**
 
-By default, go to `http://localhost:8080/charts` to see a page dynamically listing all the charts for all the sensors configured.
-
-When you click on one of then, you will see something like that:
-![](docs/PM2.5.png)
 ## Java clients
 If you need to use the gas sensors in your own Java projects, you can use the Java clients. The only external dependency used by these clients is jSerialComm for handling the serial port communication.
 
