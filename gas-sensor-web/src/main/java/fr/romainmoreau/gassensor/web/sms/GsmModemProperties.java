@@ -5,9 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
-@Component
 @Profile("sms")
 @ConfigurationProperties("gsm-modem")
 public class GsmModemProperties {
