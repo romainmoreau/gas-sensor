@@ -37,7 +37,7 @@ public class GasSensingUpdateController {
 			"application/json" })
 	public List<GasSensingUpdate> getUpdates(@PathVariable String sensorName, @PathVariable String description,
 			@RequestParam String unit, @PathVariable LocalDateTime beginning, @PathVariable LocalDateTime end) {
-		return gasSensingUpdateRepository.findBySensorNameAndDescriptionAndUnitAndLocalDateTimeBetweenOrderByIdDesc(
+		return gasSensingUpdateRepository.findBySensorNameAndDescriptionAndUnitAndLocalDateTimeBetweenOrderByIdAsc(
 				sensorName, description, unit, beginning, end);
 	}
 
