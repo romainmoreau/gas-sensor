@@ -35,7 +35,7 @@ public class GasSensingUpdateService {
 				.map(r -> restTemplate.getForObject(gasSensingProperties.getBaseUrl() + UPDATES_URL,
 						GasSensingUpdate[].class, r.getSensorName(), r.getDescription(), maxLocalDateTime,
 						lastGasSensingUpdates.getLocalDateTime(), r.getUnit()))
-				.filter(u -> u.length > 0).map(u -> u[0]).collect(Collectors.toList()));
+				.filter(u -> u.length > 0).map(u -> u[u.length - 1]).collect(Collectors.toList()));
 		return lastGasSensingUpdates;
 	}
 }
