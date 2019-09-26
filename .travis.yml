@@ -1,3 +1,13 @@
 language: java
 jdk:
   - oraclejdk13
+before_install:
+  - cd ../..
+  - git clone https://github.com/romainmoreau/gsm-modem.git romainmoreau/gsm-modem
+  - cd romainmoreau/gsm-modem
+  - mvn install
+  - cd ../..
+  - git clone https://github.com/romainmoreau/e-paper.git romainmoreau/e-paper
+  - cd romainmoreau/e-paper
+  - mvn install
+  - cd ../gas-sensor
