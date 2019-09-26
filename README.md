@@ -1,4 +1,6 @@
 # Gas sensor
+[![Build Status](https://travis-ci.org/romainmoreau/gas-sensor.svg?branch=master)](https://travis-ci.org/romainmoreau/gas-sensor)
+
 To build the projects, simply run `mvn clean install`.
 ## Web application
 ### Installation
