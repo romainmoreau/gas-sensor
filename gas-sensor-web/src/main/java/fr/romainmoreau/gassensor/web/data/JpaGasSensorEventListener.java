@@ -34,8 +34,6 @@ public class JpaGasSensorEventListener {
 				gasSensingUpdateRepository.save(gasSensingUpdate);
 				StringBuilder destinationStringBuilder = new StringBuilder();
 				destinationStringBuilder.append("/updates/");
-				destinationStringBuilder.append(gasSensingUpdate.getSensorName());
-				destinationStringBuilder.append("/");
 				destinationStringBuilder.append(gasSensingUpdate.getDescription());
 				destinationStringBuilder.append("/");
 				destinationStringBuilder.append(gasSensingUpdate.getUnit());
