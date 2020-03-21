@@ -48,7 +48,8 @@ spring:
     hibernate:
       ddl-auto: update # Not required, but if not added, you will have to create the tables by hand.
 logging:
-  file: gas-sensor-web.log # Not required, default is logging to console only.
+  file:
+    name: gas-sensor-web.log # Not required, default is logging to console only.
 server:
   port: 8081 # Not required, default is 8080.
 ```
