@@ -3,8 +3,6 @@ package fr.romainmoreau.gassensor.client.common;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.romainmoreau.gassensor.client.common.GasSensorEventListener;
-
 public class TestGasSensorEventListener implements GasSensorEventListener<TestGasSensorEvent> {
 	private final List<TestGasSensorEvent> testGasSensorEventList;
 

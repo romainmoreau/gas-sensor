@@ -2,8 +2,6 @@ package fr.romainmoreau.gassensor.client.common;
 
 import org.junit.Assert;
 
-import fr.romainmoreau.gassensor.client.common.GenericGasSensorEvent;
-
 public class TestGasSensorEvent extends GenericGasSensorEvent {
 	private byte[] event;
 
