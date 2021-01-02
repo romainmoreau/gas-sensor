@@ -1,6 +1,7 @@
 package fr.romainmoreau.gassensor.web.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 import fr.romainmoreau.gassensor.client.common.GasSensing;
 import fr.romainmoreau.gassensor.client.common.GasSensorEvent;
 import fr.romainmoreau.gassensor.datamodel.GasSensingUpdate;
+import fr.romainmoreau.gassensor.web.common.GasSensingUpdateApplicationEvent;
 import fr.romainmoreau.gassensor.web.common.GasSensorApplicationEvent;
 
 @Component
@@ -17,6 +19,9 @@ public class JpaGasSensorEventListener {
 
 	@Autowired
 	private SimpMessagingTemplate simpMessagingTemplate;
+
+	@Autowired
+	private ApplicationEventPublisher applicationEventPublisher;
 
 	@EventListener(GasSensorApplicationEvent.class)
 	public void onGasSensorApplicationEvent(GasSensorApplicationEvent<GasSensorEvent> gasSensorApplicationEvent) {
@@ -32,6 +37,8 @@ public class JpaGasSensorEventListener {
 				gasSensingUpdate.setUnit(gasSensing.getUnit());
 				gasSensingUpdate.setValue(gasSensing.getValue());
 				gasSensingUpdateRepository.save(gasSensingUpdate);
+				applicationEventPublisher
+						.publishEvent(new GasSensingUpdateApplicationEvent(gasSensingUpdate, lastGasSensingUpdate));
 				StringBuilder destinationStringBuilder = new StringBuilder();
 				destinationStringBuilder.append("/updates/");
 				destinationStringBuilder.append(gasSensingUpdate.getDescription());
