@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.2</version>
+		<version>2.5.0-M2</version>
 	</parent>
 	<groupId>fr.romainmoreau.gassensor</groupId>
 	<artifactId>gas-sensor</artifactId>
@@ -27,8 +27,7 @@
 		<module>gas-sensor-e-paper</module>
 	</modules>
 	<properties>
-		<java.version>15</java.version>
-		<postgresql.version>42.2.18</postgresql.version>
+		<java.version>16</java.version>
 	</properties>
 	<repositories>
 		<repository>

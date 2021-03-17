@@ -93,7 +93,7 @@
 						<configuration>
 							<headerType>console</headerType>
 							<jre>
-								<minVersion>11</minVersion>
+								<minVersion>16</minVersion>
 							</jre>
 						</configuration>
 					</execution>
