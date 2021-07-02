@@ -40,5 +40,9 @@
 			<groupId>fr.romainmoreau.gassensor</groupId>
 			<artifactId>gas-sensor-client-sds018</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>fr.romainmoreau.gassensor</groupId>
+			<artifactId>gas-sensor-client-pmsa003</artifactId>
+		</dependency>
 	</dependencies>
 </project>

@@ -21,6 +21,16 @@ public class ChecksumUtils {
 		return buffer.array();
 	}
 
+	public static byte[] twoBytesUnsignedSum(byte[] event) {
+		short checksum = 0;
+		for (int i = 0; i < event.length - 2; i++) {
+			checksum += ByteUtils.unsignedValue(event[i]);
+		}
+		ByteBuffer buffer = ByteBuffer.allocate(2);
+		buffer.putShort(checksum);
+		return buffer.array();
+	}
+
 	public static byte notSum(byte[] event) {
 		return (byte) ~sum(event);
 	}
