@@ -1,6 +1,6 @@
 language: java
 jdk:
-  - oraclejdk16
+  - oraclejdk17
 before_install:
   - cd ../..
   - git clone https://github.com/romainmoreau/gsm-modem.git romainmoreau/gsm-modem
