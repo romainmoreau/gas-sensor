@@ -3,13 +3,14 @@ package fr.romainmoreau.gassensor.epaper.gassensing;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import fr.romainmoreau.gassensor.datamodel.GasSensingUpdate;
+import fr.romainmoreau.gassensor.datamodel.GasSensingUpdates;
 import fr.romainmoreau.gassensor.datamodel.GasSensingUpdatesRange;
 
 @Service
@@ -33,9 +34,11 @@ public class GasSensingUpdateService {
 						.getForObject(gasSensingProperties.getBaseUrl() + RANGES_URL, GasSensingUpdatesRange[].class))
 				.stream()
 				.map(r -> restTemplate.getForObject(gasSensingProperties.getBaseUrl() + UPDATES_URL,
-						GasSensingUpdate[].class, r.getSensorName(), r.getDescription(), maxLocalDateTime,
+						GasSensingUpdates.class, r.getSensorName(), r.getDescription(), maxLocalDateTime,
 						lastGasSensingUpdates.getLocalDateTime(), r.getUnit()))
-				.filter(u -> u.length > 0).map(u -> u[u.length - 1]).collect(Collectors.toList()));
+				.map(u -> u.getPeriodUpdates().size() > 0 ? u.getPeriodUpdates().get(u.getPeriodUpdates().size() - 1)
+						: u.getFirstOutOfPeriodUpdate())
+				.filter(Objects::nonNull).collect(Collectors.toList()));
 		return lastGasSensingUpdates;
 	}
 }

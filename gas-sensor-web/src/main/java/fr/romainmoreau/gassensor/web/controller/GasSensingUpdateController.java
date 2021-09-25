@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.romainmoreau.gassensor.datamodel.GasSensingInterval;
-import fr.romainmoreau.gassensor.datamodel.GasSensingUpdate;
+import fr.romainmoreau.gassensor.datamodel.GasSensingUpdates;
 import fr.romainmoreau.gassensor.datamodel.GasSensingUpdatesRange;
 import fr.romainmoreau.gassensor.web.data.GasSensingIntervalRepository;
 import fr.romainmoreau.gassensor.web.data.GasSensingUpdateRepository;
@@ -35,10 +35,14 @@ public class GasSensingUpdateController {
 
 	@RequestMapping(path = "/updates/{sensorName}/{description}/{beginning}/{end}", method = RequestMethod.GET, produces = {
 			"application/json" })
-	public List<GasSensingUpdate> getUpdates(@PathVariable String sensorName, @PathVariable String description,
+	public GasSensingUpdates getUpdates(@PathVariable String sensorName, @PathVariable String description,
 			@RequestParam String unit, @PathVariable LocalDateTime beginning, @PathVariable LocalDateTime end) {
-		return gasSensingUpdateRepository.findBySensorNameAndDescriptionAndUnitAndLocalDateTimeBetweenOrderByIdAsc(
-				sensorName, description, unit, beginning, end);
+		return new GasSensingUpdates(
+				gasSensingUpdateRepository.findBySensorNameAndDescriptionAndUnitAndLocalDateTimeBetweenOrderByIdAsc(
+						sensorName, description, unit, beginning, end),
+				gasSensingUpdateRepository
+						.findFirstBySensorNameAndDescriptionAndUnitAndLocalDateTimeLessThanOrderByIdDesc(sensorName,
+								description, unit, beginning));
 	}
 
 	@RequestMapping(path = "/intervals/{description}/", method = RequestMethod.GET, produces = { "application/json" })
