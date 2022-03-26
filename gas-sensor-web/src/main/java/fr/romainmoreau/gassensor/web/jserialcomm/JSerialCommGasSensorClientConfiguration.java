@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +22,8 @@ import fr.romainmoreau.gassensor.client.zh03a.JSerialCommZh03AGasSensorClient;
 import fr.romainmoreau.gassensor.client.zph01.JSerialCommZph01GasSensorClient;
 import fr.romainmoreau.gassensor.web.common.Slf4JGasSensorExceptionHandler;
 import fr.romainmoreau.gassensor.web.common.SpringGasSensorEventListener;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 @Profile("jserialcomm")
 @Configuration

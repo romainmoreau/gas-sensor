@@ -1,9 +1,9 @@
 package fr.romainmoreau.gassensor.web.alert.sms;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Profile;
+
+import jakarta.validation.constraints.NotNull;
 
 @Profile("alert-sms")
 @ConfigurationProperties("alert.sms")
