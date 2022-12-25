@@ -19,7 +19,7 @@ public class EPaperConfiguration {
 	private EPaperProperties ePaperProperties;
 
 	@Bean
-	public EPaperClient ePaperClient() throws IOException {
+	EPaperClient ePaperClient() throws IOException {
 		LOGGER.info("Creating jSerialComm e-paper client using port name {}, timeout {} and receive timeout {}",
 				ePaperProperties.getPortName(), ePaperProperties.getTimeout(), ePaperProperties.getReceiveTimeout());
 		return new JSerialCommEPaperClient(ePaperProperties.getPortName(), ePaperProperties.getTimeout(),

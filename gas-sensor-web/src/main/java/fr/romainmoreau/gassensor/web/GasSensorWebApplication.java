@@ -28,7 +28,7 @@ public class GasSensorWebApplication implements WebSocketMessageBrokerConfigurer
 	}
 
 	@Bean
-	public TaskExecutor taskExecutor(TaskExecutorBuilder taskExecutorBuilder) {
+	TaskExecutor taskExecutor(TaskExecutorBuilder taskExecutorBuilder) {
 		return taskExecutorBuilder.build();
 	}
 

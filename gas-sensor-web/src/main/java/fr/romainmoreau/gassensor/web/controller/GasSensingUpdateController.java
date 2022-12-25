@@ -4,9 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,13 +27,12 @@ public class GasSensingUpdateController {
 	@Autowired
 	private GasSensingUpdatesRangeRepository gasSensingUpdatesRangeRepository;
 
-	@RequestMapping(path = "/ranges", method = RequestMethod.GET, produces = { "application/json" })
+	@GetMapping(path = "/ranges", produces = { "application/json" })
 	public List<GasSensingUpdatesRange> getRanges() {
 		return gasSensingUpdatesRangeRepository.findAll();
 	}
 
-	@RequestMapping(path = "/updates/{sensorName}/{description}/{beginning}/{end}", method = RequestMethod.GET, produces = {
-			"application/json" })
+	@GetMapping(path = "/updates/{sensorName}/{description}/{beginning}/{end}", produces = { "application/json" })
 	public GasSensingUpdates getUpdates(@PathVariable String sensorName, @PathVariable String description,
 			@RequestParam String unit, @PathVariable LocalDateTime beginning, @PathVariable LocalDateTime end) {
 		return new GasSensingUpdates(
@@ -45,7 +43,7 @@ public class GasSensingUpdateController {
 								description, unit, beginning));
 	}
 
-	@RequestMapping(path = "/intervals/{description}/", method = RequestMethod.GET, produces = { "application/json" })
+	@GetMapping(path = "/intervals/{description}/", produces = { "application/json" })
 	public List<GasSensingInterval> getIntervals(@PathVariable String description, @RequestParam String unit) {
 		return gasSensingIntervalRepository.findByDescriptionAndUnit(description, unit);
 	}

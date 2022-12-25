@@ -18,7 +18,7 @@ public class SmsConfiguration {
 	private GsmModemProperties gsmModemProperties;
 
 	@Bean
-	public GsmModemClient gsmModemClient() throws MalformedURLException, URISyntaxException {
+	GsmModemClient gsmModemClient() throws MalformedURLException, URISyntaxException {
 		return new WebGsmModemClient(gsmModemProperties.getProtocol(), gsmModemProperties.getHost(),
 				gsmModemProperties.getPort());
 	}
