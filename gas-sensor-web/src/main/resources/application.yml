@@ -1,1 +1,6 @@
-spring:  sql:    init:      enabled: true  jpa:    defer-datasource-initialization: true
+spring:
+  sql:
+    init:
+      mode: always
+  jpa:
+    defer-datasource-initialization: true
