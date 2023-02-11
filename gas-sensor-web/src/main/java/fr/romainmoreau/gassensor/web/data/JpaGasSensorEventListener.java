@@ -29,13 +29,14 @@ public class JpaGasSensorEventListener {
 			GasSensingUpdate lastGasSensingUpdate = gasSensingUpdateRepository
 					.findFirstBySensorNameAndDescriptionAndUnitOrderByIdDesc(gasSensorApplicationEvent.getSensorName(),
 							gasSensing.getDescription(), gasSensing.getUnit());
-			if (lastGasSensingUpdate == null || lastGasSensingUpdate.getValue().compareTo(gasSensing.getValue()) != 0) {
+			if (lastGasSensingUpdate == null
+					|| lastGasSensingUpdate.getReadValue().compareTo(gasSensing.getValue()) != 0) {
 				GasSensingUpdate gasSensingUpdate = new GasSensingUpdate();
 				gasSensingUpdate.setDescription(gasSensing.getDescription());
 				gasSensingUpdate.setLocalDateTime(gasSensorApplicationEvent.getGasSensorEvent().getLocalDateTime());
 				gasSensingUpdate.setSensorName(gasSensorApplicationEvent.getSensorName());
 				gasSensingUpdate.setUnit(gasSensing.getUnit());
-				gasSensingUpdate.setValue(gasSensing.getValue());
+				gasSensingUpdate.setReadValue(gasSensing.getValue());
 				gasSensingUpdateRepository.save(gasSensingUpdate);
 				applicationEventPublisher
 						.publishEvent(new GasSensingUpdateApplicationEvent(gasSensingUpdate, lastGasSensingUpdate));

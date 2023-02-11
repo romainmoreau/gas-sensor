@@ -29,7 +29,7 @@ public class GasSensingUpdate {
 	private String description;
 
 	@Column(nullable = false, precision = 10, scale = 5)
-	private BigDecimal value;
+	private BigDecimal readValue;
 
 	@Column(nullable = false)
 	private String unit;
@@ -66,12 +66,12 @@ public class GasSensingUpdate {
 		this.description = description;
 	}
 
-	public BigDecimal getValue() {
-		return value;
+	public BigDecimal getReadValue() {
+		return readValue;
 	}
 
-	public void setValue(BigDecimal value) {
-		this.value = value;
+	public void setReadValue(BigDecimal readValue) {
+		this.readValue = readValue;
 	}
 
 	public String getUnit() {

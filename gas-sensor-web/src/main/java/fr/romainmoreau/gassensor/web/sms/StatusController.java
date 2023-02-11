@@ -41,7 +41,7 @@ public class StatusController {
 		stringBuilder.append(" (");
 		stringBuilder.append(gasSensingUpdate.getDescription());
 		stringBuilder.append("): ");
-		stringBuilder.append(gasSensingUpdate.getValue().stripTrailingZeros().toPlainString());
+		stringBuilder.append(gasSensingUpdate.getReadValue().stripTrailingZeros().toPlainString());
 		stringBuilder.append(gasSensingUpdate.getUnit());
 		stringBuilder.append(" at ");
 		stringBuilder.append(gasSensingUpdate.getLocalDateTime());

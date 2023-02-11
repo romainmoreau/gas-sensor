@@ -83,9 +83,9 @@ public class AlertGasSensingUpdateEventListener {
 		if (gasSensingIntervalList.isEmpty()) {
 			return GasSensingIntervalCategory.FINE;
 		}
-		return gasSensingIntervalList.stream()
-				.filter(i -> (i.getMinValue() == null || gasSensingUpdate.getValue().compareTo(i.getMinValue()) >= 0)
-						&& (i.getMaxValue() == null || gasSensingUpdate.getValue().compareTo(i.getMaxValue()) < 0))
+		return gasSensingIntervalList.stream().filter(
+				i -> (i.getMinValue() == null || gasSensingUpdate.getReadValue().compareTo(i.getMinValue()) >= 0)
+						&& (i.getMaxValue() == null || gasSensingUpdate.getReadValue().compareTo(i.getMaxValue()) < 0))
 				.map(GasSensingInterval::getCategory).findAny().orElse(GasSensingIntervalCategory.FINE);
 	}
 

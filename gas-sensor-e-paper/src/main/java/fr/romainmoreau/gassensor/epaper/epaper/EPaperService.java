@@ -94,7 +94,7 @@ public class EPaperService {
 							.add(new Cell(1, i, 0, Color.WHITE,
 									new TextCellContent(Color.BLACK, Color.WHITE, FontSize.DOTS_32, 0,
 											HorizontalAlignment.RIGHT, VerticalAlignment.CENTER,
-											gasSensingUpdate.getValue().stripTrailingZeros().toPlainString())));
+											gasSensingUpdate.getReadValue().stripTrailingZeros().toPlainString())));
 					table.getCells()
 							.add(new Cell(2, i, 0, Color.WHITE,
 									new PaddedCellContent(10, 0, 0, 0,
