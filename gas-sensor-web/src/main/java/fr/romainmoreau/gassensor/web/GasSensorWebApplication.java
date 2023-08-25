@@ -4,9 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
-import org.springframework.boot.task.TaskExecutorBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
@@ -25,11 +22,6 @@ public class GasSensorWebApplication implements WebSocketMessageBrokerConfigurer
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		registry.addEndpoint("/stompEndpoint").withSockJS();
-	}
-
-	@Bean
-	TaskExecutor taskExecutor(TaskExecutorBuilder taskExecutorBuilder) {
-		return taskExecutorBuilder.build();
 	}
 
 	public static void main(String[] args) throws Exception {
