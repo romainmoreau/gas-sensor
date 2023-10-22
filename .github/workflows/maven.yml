@@ -1,0 +1,33 @@
+name: Java CI with Maven
+on:
+  push:
+    branches: [ "master" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout gsm-modem
+      uses: actions/checkout@v4
+      with:
+        repository: romainmoreau/gsm-modem
+        path: gsm-modem
+    - name: Checkout e-paper
+      uses: actions/checkout@v4
+      with:
+        repository: romainmoreau/e-paper
+        path: e-paper
+    - name: Checkout gas-sensor
+      uses: actions/checkout@v4
+      with:
+        path: gas-sensor
+    - name: Set up JDK 21
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'oracle'
+    - name: Build gsm-modem
+      run: mvn -B install --file gsm-modem/pom.xml
+    - name: Build e-paper
+      run: mvn -B install --file e-paper/pom.xml
+    - name: Build gas-sensor
+      run: mvn -B package --file gas-sensor/pom.xml
