@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.0-M3</version>
+		<version>3.2.0-RC1</version>
 	</parent>
 	<groupId>fr.romainmoreau.gassensor</groupId>
 	<artifactId>gas-sensor</artifactId>
@@ -28,7 +28,7 @@
 		<module>gas-sensor-e-paper</module>
 	</modules>
 	<properties>
-		<java.version>20</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<organization>
 		<name>Romain Moreau</name>
