@@ -12,18 +12,16 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import fr.romainmoreau.gassensor.datamodel.GasSensingInterval;
 import fr.romainmoreau.gassensor.datamodel.GasSensingIntervalCategory;
-import fr.romainmoreau.gassensor.datamodel.GasSensingUpdate;
+import fr.romainmoreau.gassensor.web.common.GasSensingIntervalService;
 import fr.romainmoreau.gassensor.web.common.GasSensingUpdateApplicationEvent;
 import fr.romainmoreau.gassensor.web.data.GasSensingAlertRepository;
-import fr.romainmoreau.gassensor.web.data.GasSensingIntervalRepository;
 
 @Component
 @Profile("alert")
 public class AlertGasSensingUpdateEventListener {
 	@Autowired
-	private GasSensingIntervalRepository gasSensingIntervalRepository;
+	private GasSensingIntervalService gasSensingIntervalService;
 
 	@Autowired
 	private GasSensingAlertRepository gasSensingAlertRepository;
@@ -60,9 +58,9 @@ public class AlertGasSensingUpdateEventListener {
 			return;
 		}
 		var lastCategory = gasSensingUpdateApplicationEvent.getLastGasSensingUpdate() != null
-				? getCategory(gasSensingUpdateApplicationEvent.getLastGasSensingUpdate())
+				? gasSensingIntervalService.getCategory(gasSensingUpdateApplicationEvent.getLastGasSensingUpdate())
 				: null;
-		var category = getCategory(gasSensingUpdate);
+		var category = gasSensingIntervalService.getCategory(gasSensingUpdate);
 		var alertOn = isAlertOn(category, gasSensingAlert.getThresholdCategory());
 		if (lastCategory == null || alertOn == isAlertOn(lastCategory, gasSensingAlert.getThresholdCategory())) {
 			return;
@@ -75,18 +73,6 @@ public class AlertGasSensingUpdateEventListener {
 			return;
 		}
 		applicationEventPublisher.publishEvent(alertApplicationEvent);
-	}
-
-	private GasSensingIntervalCategory getCategory(GasSensingUpdate gasSensingUpdate) {
-		var gasSensingIntervalList = gasSensingIntervalRepository
-				.findByDescriptionAndUnit(gasSensingUpdate.getDescription(), gasSensingUpdate.getUnit());
-		if (gasSensingIntervalList.isEmpty()) {
-			return GasSensingIntervalCategory.FINE;
-		}
-		return gasSensingIntervalList.stream().filter(
-				i -> (i.getMinValue() == null || gasSensingUpdate.getReadValue().compareTo(i.getMinValue()) >= 0)
-						&& (i.getMaxValue() == null || gasSensingUpdate.getReadValue().compareTo(i.getMaxValue()) < 0))
-				.map(GasSensingInterval::getCategory).findAny().orElse(GasSensingIntervalCategory.FINE);
 	}
 
 	private boolean isAlertOn(GasSensingIntervalCategory category, GasSensingIntervalCategory thresholdCategory) {

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.romainmoreau.gassensor.datamodel.GasSensingUpdatesRange;
 
@@ -22,6 +23,7 @@ public class GasSensingUpdatesRangeUpdater {
 	private GasSensingUpdatesRangeRepository gasSensingUpdatesRangeRepository;
 
 	@Scheduled(fixedDelay = 60000)
+	@Transactional
 	public void updateGasSensingUpdatesRanges() {
 		LOGGER.info("Updating gas sensing updates ranges");
 		List<Object[]> distinctSensorNameDescriptionUnitWithRangeList = gasSensingUpdateRepository
